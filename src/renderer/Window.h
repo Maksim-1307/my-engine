@@ -24,8 +24,19 @@ namespace renderer{
             return GLFWwindow;
         }
 
+        void test(){
+            std::cout << "test" << std::endl;
+        }
+
         bool is_OK(){
             return isOK;
+        }
+
+        GLuint get_width(){
+            return this->width;
+        }
+        GLuint get_height(){
+            return this->height;
         }
 
         private:

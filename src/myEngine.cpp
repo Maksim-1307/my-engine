@@ -15,12 +15,49 @@
 #include "myutils/fileReader.h"
 #include "renderer/ShaderProgram.h"
 #include "renderer/Window.h"
+#include "renderer/Camera.h"
 
 
 
 int window_width = 640;
 int window_height = 480;
 
+
+struct camData{
+    glm::vec3 position = glm::vec3(0,0,3);
+    glm::vec3 front;
+    glm::vec3 right;
+    glm::vec3 up;
+    glm::vec3 dir;
+    float fov = 45.0f;
+    float zoom = 1.0f;
+
+    glm::mat4 rotation = glm::mat4(1.0f);
+};
+
+
+void updateVectors(camData& camData){
+	camData.front = vec3(camData.rotation * vec4(0,0,-1,1));
+	camData.right = vec3(camData.rotation * vec4(1,0,0,1));
+	camData.up = vec3(camData.rotation * vec4(0,1,0,1));
+	camData.dir = vec3(camData.rotation * vec4(0,0,-1,1));
+	camData.dir.y = 0;
+	float len = length(camData.dir);
+	if (len > 0.0f){
+		camData.dir.x /= len;
+		camData.dir.z /= len;
+	}
+}
+
+void move(camData& camData, glm::vec3 movement){
+    camData.position = camData.position + movement;
+}
+
+void rotate(camData& camData, float x, float y, float z){
+    camData.rotation = glm::rotate(camData.rotation, x, glm::vec3(1,0,0));
+    camData.rotation = glm::rotate(camData.rotation, y, glm::vec3(0,1,0));
+    camData.rotation = glm::rotate(camData.rotation, z, glm::vec3(0,0,1));
+}
 
 
 int main(int argc, char** argv){
@@ -40,6 +77,8 @@ int main(int argc, char** argv){
     }
 
     glClearColor(0.0f, .0f, 0.0f, 0.0f);
+
+    renderer::Window& testWin = window;
 
     GLfloat vertices[] = {
         0.5f,  0.5f, 0.0f, 
@@ -106,29 +145,14 @@ int main(int argc, char** argv){
     glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 
-    glm::mat4 projectionTest = glm::perspective(glm::radians(45.0f), 600.0f / 480.0f, 0.0f, 10.0f);
-    glm::mat4 modelTest = glm::translate(modelTest, glm::vec3(0.0f, 0.0f, 0.5f));
-
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
-            std::cout << projectionTest[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    for (int i = 0; i < 12; i++){
-        glm::vec4 testVec = glm::vec4(vertices[i*3], vertices[i*3 + 1], vertices[i*3 + 2], 1.0f);
-        testVec = projectionTest * testVec;
-
-        std::cout << "X Y Z W" << std::endl;
-
-        std::cout << testVec.x << " " << testVec.y << " " << testVec.z << " " << testVec.w << std::endl;
-    }
-
-    // отвязываем VAO
     glBindVertexArray(0); 
 
-    float bias = -10.0f;
+
+    //Camera data
+
+
+
+    camData data;
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
@@ -138,19 +162,25 @@ int main(int argc, char** argv){
 
         shaderProgram.Use();
 
-        bias = bias + 0.01;
+        updateVectors(data);
+
+        move(data, glm::vec3(0,0,-0.001f));
+        rotate(data, 0.001f, 0.0f, 0.0f);
+
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, bias));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 
         glm::mat4 view = glm::mat4(1.0f);
         view = glm::lookAt   
             (   
-                glm::vec3(0, 0, 3),
-                glm::vec3(0, 0, 0),
-                glm::vec3(0, 1, 0)
+                data.position,
+                data.position + data.front,
+                data.up
             );
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 600.0f / 480.0f, 0.01f, 100.0f);
+
+
 
         GLuint modelLoc = glGetUniformLocation(shaderProgram.getID(), "model");
         GLuint viewLoc = glGetUniformLocation(shaderProgram.getID(), "view");
@@ -172,3 +202,4 @@ int main(int argc, char** argv){
 
     return 0;
 }
+

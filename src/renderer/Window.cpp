@@ -14,7 +14,10 @@ namespace renderer{
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        this->GLFWwindow = glfwCreateWindow(600, 400, args.name.c_str(), nullptr, nullptr);
+        this->height = args.height;
+        this->width = args.width;
+
+        this->GLFWwindow = glfwCreateWindow(width, height, args.name.c_str(), nullptr, nullptr);
 
         if (!GLFWwindow){
             std::cerr << "ERROR: failed to create a GLFW window" << std::endl;
