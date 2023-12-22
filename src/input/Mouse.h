@@ -35,7 +35,7 @@ namespace input{
 
         double xpos, ypos;
 
-        int screen_w = 620;
+        int screen_w = 640;
         int screen_h = 480;
 
         float speed = 0.5f;

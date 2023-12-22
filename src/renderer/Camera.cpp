@@ -19,6 +19,7 @@ void Camera::updateVectors(){
 		dir.x /= len;
 		dir.z /= len;
 	}
+    std::cout << "UP x: " << up.x << ", y: " << up.y << ", z: " << up.z << std::endl;
 }
 
 void Camera::rotate(float x, float y, float z){
@@ -28,7 +29,8 @@ void Camera::rotate(float x, float y, float z){
 }
 
 void Camera::move(float x, float y, float z){
-    position = position + vec3(x, y, z);
+    position = position + vec3(rotation * vec4(x, 0, z, 1.0f));
+    position = position + vec3(0,y,0);
 }
 
 mat4 Camera::getView(){

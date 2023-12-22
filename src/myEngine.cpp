@@ -165,19 +165,19 @@ int main(int argc, char** argv){
 
         int leftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT);
         if (leftKey == GLFW_PRESS){
-            camera.rotate(0.01f,0,0);
+            camera.rotate(0,0.01f,0);
         }
         int upKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_UP);
         if (upKey == GLFW_PRESS){
-            camera.rotate(0,0.01f,0);
+            camera.rotate(0.01f, 0, 0);
         }
         int downKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_DOWN);
         if (downKey == GLFW_PRESS){
-            camera.rotate(0,-0.01f,0);
+            camera.rotate(-0.01f,0,0);
         }
         int rightKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_RIGHT);
         if (rightKey == GLFW_PRESS){
-            camera.rotate(-0.01f,0,0);
+            camera.rotate(0,-0.01f,0);
         }
 
 
@@ -190,7 +190,7 @@ int main(int argc, char** argv){
         view = camera.getView();
 
 
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 600.0f / 480.0f, 0.01f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 640.0f / 480.0f, 0.01f, 100.0f);
 
 
         GLuint modelLoc = glGetUniformLocation(shaderProgram.getID(), "model");
@@ -209,7 +209,7 @@ int main(int argc, char** argv){
         glfwSwapBuffers(window.get_glfw_window());
 
         double deltaTime = glfwGetTime() - time;
-        std::cout << "FPS: " << 1 / deltaTime << std::endl; 
+        //std::cout << "FPS: " << 1 / deltaTime << std::endl; 
     }
 
     glfwTerminate();
