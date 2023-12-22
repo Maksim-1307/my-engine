@@ -4,9 +4,8 @@
 
 namespace renderer{
 
-Camera::Camera(int test){
+Camera::Camera(){
     updateVectors();
-    std::cout << "camera created" << std::endl;
 }
 
 void Camera::updateVectors(){

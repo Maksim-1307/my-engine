@@ -27,7 +27,7 @@ namespace renderer{
 
         mat4 rotation = mat4(1.0f);
 
-        Camera(int test);
+        Camera();
 
         mat4 getView();
 
@@ -36,6 +36,7 @@ namespace renderer{
         void move(float x, float y, float z);
 
         void rotate(float x, float y, float z);
+
 
     };
 

@@ -47,8 +47,6 @@ namespace renderer{
         GLFWwindow* GLFWwindow;
         bool isOK = false;
 
-        
-
     };
 
     void windowSizeCallback(GLFWwindow* pWindow, int width, int height);

@@ -16,48 +16,13 @@
 #include "renderer/ShaderProgram.h"
 #include "renderer/Window.h"
 #include "renderer/Camera.h"
+#include "input/Mouse.h"
 
 
 
 int window_width = 640;
 int window_height = 480;
 
-
-struct camData{
-    glm::vec3 position = glm::vec3(0,0,3);
-    glm::vec3 front;
-    glm::vec3 right;
-    glm::vec3 up;
-    glm::vec3 dir;
-    float fov = 45.0f;
-    float zoom = 1.0f;
-
-    glm::mat4 rotation = glm::mat4(1.0f);
-};
-
-
-void updateVectors(camData& camData){
-	camData.front = vec3(camData.rotation * vec4(0,0,-1,1));
-	camData.right = vec3(camData.rotation * vec4(1,0,0,1));
-	camData.up = vec3(camData.rotation * vec4(0,1,0,1));
-	camData.dir = vec3(camData.rotation * vec4(0,0,-1,1));
-	camData.dir.y = 0;
-	float len = length(camData.dir);
-	if (len > 0.0f){
-		camData.dir.x /= len;
-		camData.dir.z /= len;
-	}
-}
-
-void move(camData& camData, glm::vec3 movement){
-    camData.position = camData.position + movement;
-}
-
-void rotate(camData& camData, float x, float y, float z){
-    camData.rotation = glm::rotate(camData.rotation, x, glm::vec3(1,0,0));
-    camData.rotation = glm::rotate(camData.rotation, y, glm::vec3(0,1,0));
-    camData.rotation = glm::rotate(camData.rotation, z, glm::vec3(0,0,1));
-}
 
 int main(int argc, char** argv){
 
@@ -147,22 +112,73 @@ int main(int argc, char** argv){
     glBindVertexArray(0); 
 
 
-    //Camera data
 
+    renderer::Camera camera; //data
 
+    input::Mouse mouse(window.get_glfw_window());
 
-    renderer::Camera camera(5); //data
+    std::cout << mouse.get_mode() << std::endl;
+
+    mouse.set_mode(1);
+
+    std::cout << mouse.get_mode() << std::endl;
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
+
+        double time = glfwGetTime();
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.Use();
 
+        glm::vec2 cameraRotation = mouse.update();
 
-        camera.move(0,0,0.001f);
+        //camera.rotate(-cameraRotation.x, -cameraRotation.y, 0);
+
+
+        int wKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_W);
+        if (wKey == GLFW_PRESS){
+            camera.move(0,0,-0.01f);
+        }
+        int aKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_A);
+        if (aKey == GLFW_PRESS){
+            camera.move(-0.01f,0,0);
+        }
+        int sKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_S);
+        if (sKey == GLFW_PRESS){
+            camera.move(0,0,0.01f);
+        }
+        int dKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_D);
+        if (dKey == GLFW_PRESS){
+            camera.move(0.01f,0,0);
+        }
+        int spaceKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_SPACE);
+        if (spaceKey == GLFW_PRESS){
+            camera.move(0,0.01f,0);
+        }
+        int shiftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT_SHIFT);
+        if (shiftKey == GLFW_PRESS){
+            camera.move(0,-0.01f,0);
+        }
+
+        int leftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT);
+        if (leftKey == GLFW_PRESS){
+            camera.rotate(0.01f,0,0);
+        }
+        int upKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_UP);
+        if (upKey == GLFW_PRESS){
+            camera.rotate(0,0.01f,0);
+        }
+        int downKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_DOWN);
+        if (downKey == GLFW_PRESS){
+            camera.rotate(0,-0.01f,0);
+        }
+        int rightKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_RIGHT);
+        if (rightKey == GLFW_PRESS){
+            camera.rotate(-0.01f,0,0);
+        }
 
 
         glm::mat4 model = glm::mat4(1.0f);
@@ -191,6 +207,9 @@ int main(int argc, char** argv){
         glBindVertexArray(0);
 
         glfwSwapBuffers(window.get_glfw_window());
+
+        double deltaTime = glfwGetTime() - time;
+        std::cout << "FPS: " << 1 / deltaTime << std::endl; 
     }
 
     glfwTerminate();
