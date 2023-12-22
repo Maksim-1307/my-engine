@@ -59,7 +59,6 @@ void rotate(camData& camData, float x, float y, float z){
     camData.rotation = glm::rotate(camData.rotation, z, glm::vec3(0,0,1));
 }
 
-
 int main(int argc, char** argv){
 
     myutils::setCurrentDirectory(argv);
@@ -152,7 +151,7 @@ int main(int argc, char** argv){
 
 
 
-    camData data;
+    renderer::Camera camera(5); //data
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
@@ -162,24 +161,20 @@ int main(int argc, char** argv){
 
         shaderProgram.Use();
 
-        updateVectors(data);
 
-        move(data, glm::vec3(0,0,-0.001f));
-        rotate(data, 0.001f, 0.0f, 0.0f);
+        camera.move(0,0,0.001f);
 
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 
-        glm::mat4 view = glm::mat4(1.0f);
-        view = glm::lookAt   
-            (   
-                data.position,
-                data.position + data.front,
-                data.up
-            );
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 600.0f / 480.0f, 0.01f, 100.0f);
 
+        glm::mat4 view = glm::mat4(1.0f);
+
+        view = camera.getView();
+
+
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 600.0f / 480.0f, 0.01f, 100.0f);
 
 
         GLuint modelLoc = glGetUniformLocation(shaderProgram.getID(), "model");
