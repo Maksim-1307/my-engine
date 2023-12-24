@@ -42,23 +42,33 @@ int main(int argc, char** argv){
 
     glClearColor(0.0f, .0f, 0.0f, 0.0f);
 
+    glfwSetInputMode(window.get_glfw_window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     renderer::Window& testWin = window;
 
     GLfloat vertices[] = {
-        0.5f,  0.5f, 0.0f, 
-        0.5f, -0.5f, 0.5f, 
-        -0.5f, -0.5f, 0.0f, 
-        -0.5f,  0.5f, 0.0f,
-        0.5f,  0.5f, 0.0f, 
-        0.5f, -0.5f, 0.5f, 
-        -0.5f, -0.5f, 0.0f, 
-        -0.5f,  0.5f, 0.0f   
+        0, 0, 0,
+        1, 0, 0,
+        1, 0, 1,
+        0, 0, 1,
+        0, 1, 0,
+        1, 1, 0,
+        1, 1, 1,
+        0, 1, 1
     };
     GLuint indices[] = { 
-        0, 1, 3,   
-        1, 2, 3,
-        3, 1, 0,   
-        3, 2, 1   
+        0, 1, 2,
+        0, 3, 2,
+        0, 4, 3,
+        4, 7, 3,
+        3, 7, 2,
+        7, 2, 6,
+        0, 1, 4,
+        4, 1, 5,
+        4, 5, 6,
+        4, 6, 7,
+        1, 2, 5,
+        5, 2, 6
     };  
 
     GLfloat colors[]{
@@ -117,12 +127,6 @@ int main(int argc, char** argv){
 
     input::Mouse mouse(window.get_glfw_window());
 
-    std::cout << mouse.get_mode() << std::endl;
-
-    mouse.set_mode(1);
-
-    std::cout << mouse.get_mode() << std::endl;
-
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
@@ -135,7 +139,7 @@ int main(int argc, char** argv){
 
         glm::vec2 cameraRotation = mouse.update();
 
-        //camera.rotate(-cameraRotation.x, -cameraRotation.y, 0);
+        camera.rotate(cameraRotation.x, cameraRotation.y, 0);
 
 
         int wKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_W);
@@ -163,23 +167,6 @@ int main(int argc, char** argv){
             camera.move(0,-0.01f,0);
         }
 
-        int leftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT);
-        if (leftKey == GLFW_PRESS){
-            camera.rotate(0,0.01f,0);
-        }
-        int upKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_UP);
-        if (upKey == GLFW_PRESS){
-            camera.rotate(0.01f, 0, 0);
-        }
-        int downKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_DOWN);
-        if (downKey == GLFW_PRESS){
-            camera.rotate(-0.01f,0,0);
-        }
-        int rightKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_RIGHT);
-        if (rightKey == GLFW_PRESS){
-            camera.rotate(0,-0.01f,0);
-        }
-
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -203,13 +190,13 @@ int main(int argc, char** argv){
 
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         glfwSwapBuffers(window.get_glfw_window());
 
         double deltaTime = glfwGetTime() - time;
-        //std::cout << "FPS: " << 1 / deltaTime << std::endl; 
+        std::cout << "FPS: " << 1 / deltaTime << std::endl; 
     }
 
     glfwTerminate();

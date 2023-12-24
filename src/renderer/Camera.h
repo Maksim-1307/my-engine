@@ -17,15 +17,17 @@ namespace renderer{
 
         public:
 
-        vec3 position = vec3(0,0,3);
+        vec3 position = vec3(0,1,3);
         vec3 front;
         vec3 right;
         vec3 up;
-        vec3 dir;
+        vec3 absoluteUp = vec3(0,1,0);
         float fov = 45.0f;
         float zoom = 1.0f;
 
-        mat4 rotation = mat4(1.0f);
+        // horizontal and vertical camera rotation
+        float horizontalRot = 270.0f;  //from 0 to 360
+        float verticalRot = 0.0f;    // from -90 to 90
 
         Camera();
 

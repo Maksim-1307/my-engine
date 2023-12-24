@@ -38,7 +38,7 @@ namespace input{
         int screen_w = 640;
         int screen_h = 480;
 
-        float speed = 0.5f;
+        float speed = 10.0f;
 
         private:
 
