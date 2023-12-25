@@ -23,7 +23,6 @@ namespace renderer{
         vec3 up;
         vec3 absoluteUp = vec3(0,1,0);
         float fov = 45.0f;
-        float zoom = 1.0f;
 
         // horizontal and vertical camera rotation
         float horizontalRot = 270.0f;  //from 0 to 360

@@ -23,7 +23,7 @@ void Camera::updateVectors(){
 void Camera::rotate(float x, float y, float z){
     horizontalRot -= x;
     verticalRot += y;
-    
+
     if (verticalRot < -89.99f){
         verticalRot = -89.99f;
     } else if (verticalRot > 89.99f){
@@ -41,8 +41,11 @@ void Camera::move(float x, float y, float z){
 }
 
 mat4 Camera::getView(){
-    updateVectors();
     return lookAt(position, position + front, up);
+}
+
+mat4 Camera::getProjection(){
+    return perspective(glm::radians(fov), 640.0f / 480.0f, 0.01f, 1500.0f);
 }
 
 }

@@ -26,7 +26,19 @@ namespace renderer{
 
         glfwMakeContextCurrent(GLFWwindow);
         glfwSetWindowSizeCallback(GLFWwindow, windowSizeCallback);
+
+        glewExperimental = GL_TRUE;
+        GLenum gl_err = glewInit();
+        if (gl_err != GLEW_OK) {
+            std::cerr << "ERROR: failed to initialize GLEW" << std::endl;
+            exit(-1);
+        }
+
+        glClearColor(0.3f, 0.3f, 0.5f, 1.0f);
+
+        glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
+
     Window::~Window(){
         glfwTerminate();
     }
