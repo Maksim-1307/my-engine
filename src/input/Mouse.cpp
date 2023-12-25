@@ -2,7 +2,7 @@
 
 using namespace input;
 
-Mouse::Mouse(GLFWwindow* window){
+Mouse::Mouse(renderer::Window& window) : window(window){
     this->window = window;
 }
 
@@ -10,11 +10,11 @@ vec2 Mouse::update(){
 
     vec2 moving;
 
-    glfwGetCursorPos(window, &xpos, &ypos);
-    glfwSetCursorPos(window, screen_w/2, screen_h/2);
+    glfwGetCursorPos(window.get_glfw_window(), &xpos, &ypos);
+    glfwSetCursorPos(window.get_glfw_window(), window.get_width()/2, window.get_height()/2);
 
-    moving.x = speed * float(screen_w/2 - xpos );
-    moving.y = speed * float( screen_h/2 - ypos );
+    moving.x = speed * float(window.get_width()/2 - xpos );
+    moving.y = speed * float( window.get_height()/2 - ypos );
 
     return moving / 100.0f;
 

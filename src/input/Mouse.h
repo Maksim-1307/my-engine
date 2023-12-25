@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 
 #define GLEW_STATIC
@@ -12,6 +14,8 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../renderer/Window.h"
+
 using namespace glm;
 
 namespace input{
@@ -20,7 +24,7 @@ namespace input{
 
         public:
 
-        Mouse(GLFWwindow* window);
+        Mouse(renderer::Window& window);
 
         void set_mode(int mode){
             this->mode = mode;
@@ -35,8 +39,8 @@ namespace input{
 
         double xpos, ypos;
 
-        int screen_w = 640;
-        int screen_h = 480;
+        int screen_w;
+        int screen_h;
 
         float speed = 10.0f;
 
@@ -45,7 +49,7 @@ namespace input{
         int mode = 0;
 
 
-        GLFWwindow* window;
+        renderer::Window& window;
 
     };
 

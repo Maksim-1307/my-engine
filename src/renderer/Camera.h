@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 
 #define GLM_FORCE_CTOR_INIT
@@ -6,6 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Window.h"
 
 using namespace glm;
 
@@ -16,6 +20,8 @@ namespace renderer{
         void updateVectors();
 
         public:
+
+        Camera(Window& window);
 
         vec3 position = vec3(0,1,3);
         vec3 front;
@@ -28,7 +34,7 @@ namespace renderer{
         float horizontalRot = 270.0f;  //from 0 to 360
         float verticalRot = 0.0f;    // from -90 to 90
 
-        Camera();
+        Window& window;
 
         mat4 getView();
 

@@ -12,19 +12,14 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "include/stb_image.hpp"
 
 #include "myutils/fileReader.h"
 #include "renderer/ShaderProgram.h"
 #include "renderer/Window.h"
 #include "renderer/Camera.h"
 #include "input/Mouse.h"
-
-
-
-int window_width = 640;
-int window_height = 480;
+#include "input/KeyHandler.h"
+#include "graphics/Texture.h"
 
 
 int main(int argc, char** argv){
@@ -92,41 +87,47 @@ int main(int argc, char** argv){
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
 
 
+    graphics::Texture texture("res/textures/mytexture.jpg", 0);
+
+    std::cout << "the id is " << texture.get_ID() << std::endl;
+    std::cout << "width is " << texture.width << ", height is " << texture.height << ", channels: " << texture.channels << std::endl;
+
+
     // TEST TEXTURE
 
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    // GLuint texture;
+    // glGenTextures(1, &texture);
+    // glActiveTexture(GL_TEXTURE0);
+    // glBindTexture(GL_TEXTURE_2D, texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // Set texture filtering
+    // // Set texture filtering
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    int w;
-    int h;
-    int comp;
-    std::string texturename = "res/textures/mytexture.jpg";
-    unsigned char* image = stbi_load(texturename.c_str(), &w, &h, &comp, 0);
+    // int w;
+    // int h;
+    // int comp;
+    // std::string texturename = "res/textures/mytexture.jpg";
+    // unsigned char* image = stbi_load(texturename.c_str(), &w, &h, &comp, 0);
 
-    if (!image) {
-        std::cout << "Can't load image\n";
-        exit(-1);
-    }
+    // if (!image) {
+    //     std::cout << "Can't load image\n";
+    //     exit(-1);
+    // }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 
-    if (!texture){
-        std::cout << "Cant load a texture\n";
-        exit(-1);
-    }
+    // if (!texture){
+    //     std::cout << "Cant load a texture\n";
+    //     exit(-1);
+    // }
 
-    delete[]image;
-    glBindTexture(GL_TEXTURE_2D, 0);
+    // delete[]image;
+    // glBindTexture(GL_TEXTURE_2D, 0);
 
-    std::cout << "w: " << w << ", h: " << h << std::endl;
+    // std::cout << "w: " << w << ", h: " << h << std::endl;
 
     // END
 
@@ -173,9 +174,8 @@ int main(int argc, char** argv){
 
 
 
-    renderer::Camera camera;
-
-    input::Mouse mouse(window.get_glfw_window());
+    renderer::Camera camera(window);
+    input::Mouse mouse(window);
 
 
     glm::mat4 model = glm::mat4(1.0f);
@@ -199,30 +199,7 @@ int main(int argc, char** argv){
         camera.rotate(cameraRotation.x, cameraRotation.y, 0);
 
 
-        int wKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_W);
-        if (wKey == GLFW_PRESS){
-            camera.move(0,0,-0.01f);
-        }
-        int aKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_A);
-        if (aKey == GLFW_PRESS){
-            camera.move(-0.01f,0,0);
-        }
-        int sKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_S);
-        if (sKey == GLFW_PRESS){
-            camera.move(0,0,0.01f);
-        }
-        int dKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_D);
-        if (dKey == GLFW_PRESS){
-            camera.move(0.01f,0,0);
-        }
-        int spaceKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_SPACE);
-        if (spaceKey == GLFW_PRESS){
-            camera.move(0,0.01f,0);
-        }
-        int shiftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT_SHIFT);
-        if (shiftKey == GLFW_PRESS){
-            camera.move(0,-0.01f,0);
-        }
+        input::process_keys(window, camera);
 
 
         view = camera.getView();
@@ -237,7 +214,7 @@ int main(int argc, char** argv){
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glBindTexture(GL_TEXTURE_2D, texture.get_ID());
         glUniform1i(glGetUniformLocation(shaderProgram.getID(), "Texture"), 0);
 
         glBindVertexArray(VAO);

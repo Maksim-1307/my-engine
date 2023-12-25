@@ -4,7 +4,8 @@
 
 namespace renderer{
 
-Camera::Camera(){
+Camera::Camera(Window& window) : window(window){
+    this->window = window;
     updateVectors();
 }
 
@@ -45,7 +46,7 @@ mat4 Camera::getView(){
 }
 
 mat4 Camera::getProjection(){
-    return perspective(glm::radians(fov), 640.0f / 480.0f, 0.01f, 1500.0f);
+    return perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), 0.01f, 1500.0f);
 }
 
 }
