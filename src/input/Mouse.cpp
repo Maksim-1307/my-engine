@@ -16,6 +16,6 @@ vec2 Mouse::update(){
     moving.x = speed * float(window.get_width()/2 - xpos );
     moving.y = speed * float( window.get_height()/2 - ypos );
 
-    return moving / 100.0f;
+    return moving;
 
 }

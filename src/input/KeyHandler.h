@@ -10,31 +10,31 @@
 
 namespace input{
 
-static void process_keys(renderer::Window& window, renderer::Camera& camera){
+static void process_keys(renderer::Window& window, renderer::Camera& camera, float deltaTime){
 
     int wKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_W);
     if (wKey == GLFW_PRESS){
-        camera.move(0,0,-0.01f);
+        camera.move(0,0,-1.0f * deltaTime);
     }
     int aKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_A);
     if (aKey == GLFW_PRESS){
-        camera.move(-0.01f,0,0);
+        camera.move(-1.0f * deltaTime,0,0);
     }
     int sKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_S);
     if (sKey == GLFW_PRESS){
-        camera.move(0,0,0.01f);
+        camera.move(0,0,1.0f * deltaTime);
     }
     int dKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_D);
     if (dKey == GLFW_PRESS){
-        camera.move(0.01f,0,0);
+        camera.move(1.0f * deltaTime,0,0);
     }
     int spaceKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_SPACE);
     if (spaceKey == GLFW_PRESS){
-        camera.move(0,0.01f,0);
+        camera.move(0,1.0f * deltaTime,0);
     }
     int shiftKey = glfwGetKey(window.get_glfw_window(), GLFW_KEY_LEFT_SHIFT);
     if (shiftKey == GLFW_PRESS){
-        camera.move(0,-0.01f,0);
+        camera.move(0,-1.0f * deltaTime,0);
     }
 }
 }

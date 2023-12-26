@@ -15,7 +15,7 @@ Texture::Texture(std::string path, unsigned int uniformID){
 }
 
 Texture::~Texture(){
-    std::cout << "deleted\n";
+    glDeleteTextures(1, &id);
 }
 
 GLuint Texture::load_texture(std::string path){

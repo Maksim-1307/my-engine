@@ -20,6 +20,7 @@
 #include "input/Mouse.h"
 #include "input/KeyHandler.h"
 #include "graphics/Texture.h"
+#include "time/FPSCounter.h"
 
 
 int main(int argc, char** argv){
@@ -93,43 +94,6 @@ int main(int argc, char** argv){
     std::cout << "width is " << texture.width << ", height is " << texture.height << ", channels: " << texture.channels << std::endl;
 
 
-    // TEST TEXTURE
-
-    // GLuint texture;
-    // glGenTextures(1, &texture);
-    // glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D, texture);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // // Set texture filtering
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    // int w;
-    // int h;
-    // int comp;
-    // std::string texturename = "res/textures/mytexture.jpg";
-    // unsigned char* image = stbi_load(texturename.c_str(), &w, &h, &comp, 0);
-
-    // if (!image) {
-    //     std::cout << "Can't load image\n";
-    //     exit(-1);
-    // }
-
-    // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-
-    // if (!texture){
-    //     std::cout << "Cant load a texture\n";
-    //     exit(-1);
-    // }
-
-    // delete[]image;
-    // glBindTexture(GL_TEXTURE_2D, 0);
-
-    // std::cout << "w: " << w << ", h: " << h << std::endl;
-
-    // END
 
     glEnable(GL_DEPTH_TEST);
 
@@ -184,10 +148,14 @@ int main(int argc, char** argv){
 
     model = glm::rotate(model, glm::radians(90.0f) , glm::vec3(1.0f, 0.0f, 0.0f));
 
+    timemanager::FPSCounter fpsCounter(window, 10);
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
-        double time = glfwGetTime();
+        fpsCounter.update();
+
+        float deltaTime = fpsCounter.deltaTime;
+
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -196,10 +164,10 @@ int main(int argc, char** argv){
 
         glm::vec2 cameraRotation = mouse.update();
 
-        camera.rotate(cameraRotation.x, cameraRotation.y, 0);
+        camera.rotate(cameraRotation.x * deltaTime, cameraRotation.y * deltaTime, 0);
 
 
-        input::process_keys(window, camera);
+        input::process_keys(window, camera, deltaTime);
 
 
         view = camera.getView();
@@ -224,8 +192,6 @@ int main(int argc, char** argv){
 
         glfwSwapBuffers(window.get_glfw_window());
 
-        double deltaTime = glfwGetTime() - time;
-        std::cout << "FPS: " << 1 / deltaTime << std::endl; 
     }
 
     glfwTerminate();
