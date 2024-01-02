@@ -83,5 +83,29 @@ namespace renderer{
         return pShader;
     }
 
+    bool ShaderProgram::set_matrix4(std::string uniformName, glm::mat4 matrix){
+        GLuint uniformLoc = glGetUniformLocation(this->ID, uniformName.c_str());
+        if (uniformLoc == -1){
+            std::cout << "WARNING: uniform named '" << uniformName << "' doesnt exitst" << std::endl;
+            return false;
+        } else {
+            glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, glm::value_ptr(matrix));
+            return true;
+        }
+    }
+
+    bool ShaderProgram::set_texture(std::string uniformName, GLuint tectureID){
+        GLuint uniformLoc = glGetUniformLocation(this->ID, uniformName.c_str());
+        if (uniformLoc == -1){
+            std::cout << "WARNING: uniform named '" << uniformName << "' doesnt exitst" << std::endl;
+            return false;
+        } else {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, tectureID);
+            glUniform1i(uniformLoc, 0);
+            return true;
+        }
+    }
+
 
 }

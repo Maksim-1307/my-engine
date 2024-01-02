@@ -22,6 +22,8 @@ namespace graphics{
             return id;
         }
 
+        void bind_texture();
+
         private:
         GLuint load_texture(std::string path);
 

@@ -21,6 +21,7 @@
 #include "input/KeyHandler.h"
 #include "graphics/Texture.h"
 #include "time/FPSCounter.h"
+#include "graphics/Sprite.h"
 
 
 int main(int argc, char** argv){
@@ -82,10 +83,8 @@ int main(int argc, char** argv){
     myutils::readFile(SHADERS_PATH "shader-v.glsl", &vShaderSource);
     myutils::readFile(SHADERS_PATH "shader-f.glsl", &fShaderSource);
 
-    const GLchar * vShaderSourceStr = vShaderSource.c_str();
-    const GLchar * fShaderSourceStr = fShaderSource.c_str();
-
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
+
 
 
     graphics::Texture texture("res/textures/mytexture.jpg", 0);
@@ -104,6 +103,9 @@ int main(int argc, char** argv){
     glGenBuffers(1, &vertex_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    std::cout << "sizeof(vertices) == " << sizeof(vertices) << std::endl;
+    std::cout << "sizeof(indices) == " << sizeof(indices) << std::endl;
 
     GLuint color_VBO;
     glGenBuffers(1, &color_VBO);
@@ -137,7 +139,6 @@ int main(int argc, char** argv){
     glBindVertexArray(0); 
 
 
-
     renderer::Camera camera(window);
     input::Mouse mouse(window);
 
@@ -150,6 +151,55 @@ int main(int argc, char** argv){
 
     timemanager::FPSCounter fpsCounter(window, 10);
 
+
+
+
+    /* 2D test*/
+
+    std::string vShaderSource_2D;
+    std::string fShaderSource_2D;
+
+    myutils::readFile(SHADERS_PATH "shader2D-v.glsl", &vShaderSource_2D);
+    myutils::readFile(SHADERS_PATH "test-f.glsl", &fShaderSource_2D);
+
+    renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
+
+    GLfloat vertices_2D[] = {
+        0, 0, 0,
+        1, 0, 0,
+        0, 1, 0,
+        1, 1, 0,
+    };
+    GLuint indices_2D[] = { 
+        0, 1, 2,      
+        1, 3, 2
+    };  
+
+    GLfloat colors_2D[]{
+        1.0f, 0.f, 0.f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+        1.0f, 0.0f, 1.0f
+    };
+
+    GLfloat texCoords_2D[]{
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 1,
+    };
+
+
+    /* END */
+
+
+    graphics::Texture testTexture("res/textures/mytexture.jpg", 0);
+    graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
+
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
         fpsCounter.update();
@@ -159,6 +209,8 @@ int main(int argc, char** argv){
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        testSprite.render();
 
         shaderProgram.Use();
 
@@ -173,17 +225,11 @@ int main(int argc, char** argv){
         view = camera.getView();
         projection = camera.getProjection();
 
-        GLuint modelLoc = glGetUniformLocation(shaderProgram.getID(), "model");
-        GLuint viewLoc = glGetUniformLocation(shaderProgram.getID(), "view");
-        GLuint projectionLoc = glGetUniformLocation(shaderProgram.getID(), "projection");
+        shaderProgram.set_matrix4("model", model);
+        shaderProgram.set_matrix4("view", view);
+        shaderProgram.set_matrix4("projection", projection);
 
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture.get_ID());
-        glUniform1i(glGetUniformLocation(shaderProgram.getID(), "Texture"), 0);
+        shaderProgram.set_texture("Texture", texture.get_ID());
 
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

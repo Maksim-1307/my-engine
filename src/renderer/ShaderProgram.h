@@ -3,6 +3,13 @@
 #include <iostream>
 #include <GL/glew.h>
 
+#define GLM_FORCE_CTOR_INIT
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 namespace renderer{
 
     class ShaderProgram {
@@ -17,6 +24,10 @@ namespace renderer{
         bool Use();
 
         bool is_compiled();
+
+        bool set_matrix4(std::string uniformName, glm::mat4 matrix);
+
+        bool set_texture(std::string uniformName, GLuint tectureID);
     
     private:
 
