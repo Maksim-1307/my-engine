@@ -44,7 +44,9 @@ namespace input{
 
         float speed = 10.0f;
 
-        private:
+        void set_in_center();
+
+    private:
 
         int mode = 0;
 

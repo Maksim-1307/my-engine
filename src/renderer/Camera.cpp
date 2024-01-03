@@ -26,6 +26,7 @@ void Camera::updateVectors(){
 }
 
 void Camera::rotate(float x, float y, float z){
+
     horizontalRot -= x;
     verticalRot += y;
 

@@ -24,10 +24,6 @@ namespace renderer{
             return GLFWwindow;
         }
 
-        void test(){
-            std::cout << "test" << std::endl;
-        }
-
         bool is_OK(){
             return isOK;
         }

@@ -89,10 +89,6 @@ int main(int argc, char** argv){
 
     graphics::Texture texture("res/textures/mytexture.jpg", 0);
 
-    std::cout << "the id is " << texture.get_ID() << std::endl;
-    std::cout << "width is " << texture.width << ", height is " << texture.height << ", channels: " << texture.channels << std::endl;
-
-
 
     glEnable(GL_DEPTH_TEST);
 
@@ -164,41 +160,13 @@ int main(int argc, char** argv){
 
     renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
 
-    GLfloat vertices_2D[] = {
-        0, 0, 0,
-        1, 0, 0,
-        0, 1, 0,
-        1, 1, 0,
-    };
-    GLuint indices_2D[] = { 
-        0, 1, 2,      
-        1, 3, 2
-    };  
-
-    GLfloat colors_2D[]{
-        1.0f, 0.f, 0.f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 1.0f
-    };
-
-    GLfloat texCoords_2D[]{
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 1,
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 1,
-    };
-
-
-    /* END */
-
 
     graphics::Texture testTexture("res/textures/mytexture.jpg", 0);
     graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
+    testSprite.set_position(vec2(0.3f, -0.1f));
+
+    mouse.set_in_center();
+
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
@@ -215,6 +183,8 @@ int main(int argc, char** argv){
         shaderProgram.Use();
 
         glm::vec2 cameraRotation = mouse.update();
+
+        std::cout << "x bias is: " << cameraRotation.x << ", y bias is: " << cameraRotation.y << std::endl;
 
         camera.rotate(cameraRotation.x * deltaTime, cameraRotation.y * deltaTime, 0);
 

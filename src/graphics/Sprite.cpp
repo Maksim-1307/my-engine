@@ -28,15 +28,6 @@ void Sprite::render(){
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
-
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 3; j++){
-            std::cout << colors[i*3 + j] << " ";
-        }
-        std::cout << "\n";
-    }
-
-
 }
 
 void Sprite::laod_buffers(){
@@ -61,9 +52,6 @@ void Sprite::laod_buffers(){
     glGenBuffers(1, &color_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
     glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
-
-    std::cout << "size of GLfloat is " << sizeof(GLfloat) << std::endl;
-
 
     glGenBuffers(1, &texture_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
@@ -112,43 +100,50 @@ void Sprite::update_UVs(){
 
     glm::vec2 normalSize = glm::normalize(size);
 
-    switch(UVmode){
-        case CUSTOM:
-            break;
-        case FILL:
-            uv = new GLfloat[] {
-                0.0f, 0.0f,
-                1.0f, 0.0f,
-                0.0f, 1.0f,
-                1.0f, 1.0f
-            };
-            break;
-        case FIT:
-            uv = new GLfloat[] {
-                0, 0,
-                normalSize.x, 0,
-                0, normalSize.y,
-                normalSize.x, normalSize.y
-            };
-            break;
-        case COVER:
-            //glm::vec2 normalSize = glm::normalize(size);
-            float ratio = normalSize.x / normalSize.y;
-            uv = new GLfloat[] {
-                0, 0,
-                normalSize.x / ratio, 0,
-                0, normalSize.y / ratio,
-                normalSize.x / ratio, normalSize.y / ratio
-            };
-            break;
-        // default:
-        //     uv = new GLfloat[] {
-        //         0, 0,
-        //         1, 0,
-        //         0, 1,
-        //         1, 1 
-        //     };
-    }
+    uv = new GLfloat[]{
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f
+    };
+
+    // switch(UVmode){
+    //     case CUSTOM:
+    //         break;
+    //     case FILL:
+    //         uv = new GLfloat[] {
+    //             0.0f, 0.0f,
+    //             1.0f, 0.0f,
+    //             0.0f, 1.0f,
+    //             1.0f, 1.0f
+    //         };
+    //         break;
+    //     case FIT:
+    //         uv = new GLfloat[] {
+    //             0, 0,
+    //             normalSize.x, 0,
+    //             0, normalSize.y,
+    //             normalSize.x, normalSize.y
+    //         };
+    //         break;
+    //     case COVER:
+    //         //glm::vec2 normalSize = glm::normalize(size);
+    //         float ratio = normalSize.x / normalSize.y;
+    //         uv = new GLfloat[] {
+    //             0, 0,
+    //             normalSize.x / ratio, 0,
+    //             0, normalSize.y / ratio,
+    //             normalSize.x / ratio, normalSize.y / ratio
+    //         };
+    //         break;
+    //     // default:
+    //     //     uv = new GLfloat[] {
+    //     //         0, 0,
+    //     //         1, 0,
+    //     //         0, 1,
+    //     //         1, 1 
+    //     //     };
+    // }
 
 }
 
