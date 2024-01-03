@@ -5,11 +5,15 @@
 namespace renderer{
 
 Camera::Camera(Window& window) : window(window){
+    std::cout << "horizontalRot is: " << horizontalRot << std::endl;
     this->window = window;
     updateVectors();
+    std::cout << "horizontalRot after is: " << horizontalRot << std::endl;
 }
 
 void Camera::updateVectors(){
+
+    std::cout << "horizontalRot is: " << horizontalRot << std::endl;
 
     front.x = cos(glm::radians(horizontalRot)) * cos(glm::radians(verticalRot));
     front.y = sin(glm::radians(verticalRot));
