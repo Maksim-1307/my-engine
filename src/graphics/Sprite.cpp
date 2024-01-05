@@ -48,14 +48,16 @@ void Sprite::laod_buffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
     glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 
-
-    glGenBuffers(1, &color_VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
-    glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(GLfloat), colors, GL_STATIC_DRAW);
-
     glGenBuffers(1, &texture_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
     glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(GLfloat), uv, GL_STATIC_DRAW);
+
+
+    // glGenBuffers(1, &VBO);
+    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // glBufferData(GL_ARRAY_BUFFER, VERTEX_SIZE * 4 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+
+
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), indices, GL_STATIC_DRAW);
@@ -69,12 +71,8 @@ void Sprite::laod_buffers(){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(GLfloat), (GLvoid*)0);
 
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-
-    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, 2 * sizeof(GLfloat), (GLvoid*)0);
 
     glBindVertexArray(0); 
 

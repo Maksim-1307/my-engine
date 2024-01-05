@@ -60,13 +60,6 @@ int main(int argc, char** argv){
         5, 2, 6
     };  
 
-    GLfloat colors[]{
-        1.0f, 0.f, 0.f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 1.0f
-    };
-
     GLfloat texCoords[]{
         0, 0,
         1, 0,
@@ -101,11 +94,6 @@ int main(int argc, char** argv){
     glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    GLuint color_VBO;
-    glGenBuffers(1, &color_VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-
     GLuint texture_VBO;
     glGenBuffers(1, &texture_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
@@ -123,12 +111,8 @@ int main(int argc, char** argv){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(GLfloat), (GLvoid*)0);
 
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-
-    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, 2 * sizeof(GLfloat), (GLvoid*)0);
 
     glBindVertexArray(0); 
 

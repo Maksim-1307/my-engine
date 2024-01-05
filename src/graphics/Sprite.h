@@ -12,7 +12,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
+#include "../constants.h"
 #include "Texture.h"
 
 enum UVmode {
@@ -46,10 +46,11 @@ namespace graphics{
 
         private:
 
-        GLuint EBO;
         GLuint vertex_VBO;
-        GLuint color_VBO;
         GLuint texture_VBO;
+
+        GLuint VBO;
+        GLuint EBO;
         GLuint VAO;
 
         GLfloat* vertices;
