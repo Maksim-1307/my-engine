@@ -155,7 +155,7 @@ int main(int argc, char** argv){
     renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
 
 
-    graphics::Texture testTexture("res/textures/mytexture2.jpg", 0);
+    graphics::Texture testTexture("res/textures/mypng.png", 0);
     graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
     testSprite.set_position(vec2(0.3f, -0.1f));
 

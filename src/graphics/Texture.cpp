@@ -27,7 +27,7 @@ GLuint Texture::load_texture(std::string path){
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, 0);
+    unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, STBI_rgb);
 
     if (!pixels) {
         std::cout << "Can't load image\n";
