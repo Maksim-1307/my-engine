@@ -4,6 +4,9 @@ using namespace input;
 
 Mouse::Mouse(renderer::Window& window) : window(window){
     this->window = window;
+
+    glfwPollEvents();
+    set_in_center();
 }
 
 vec2 Mouse::update(){

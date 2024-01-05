@@ -1,7 +1,4 @@
 
-/* test commit */
-
-
 #include <iostream>
 
 #define GLEW_STATIC
@@ -104,9 +101,6 @@ int main(int argc, char** argv){
     glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    std::cout << "sizeof(vertices) == " << sizeof(vertices) << std::endl;
-    std::cout << "sizeof(indices) == " << sizeof(indices) << std::endl;
-
     GLuint color_VBO;
     glGenBuffers(1, &color_VBO);
     glBindBuffer(GL_ARRAY_BUFFER, color_VBO);
@@ -169,8 +163,6 @@ int main(int argc, char** argv){
     graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
     testSprite.set_position(vec2(0.3f, -0.1f));
 
-    mouse.set_in_center();
-
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
@@ -187,8 +179,6 @@ int main(int argc, char** argv){
         shaderProgram.Use();
 
         glm::vec2 cameraRotation = mouse.update();
-
-        std::cout << "x bias is: " << cameraRotation.x << ", y bias is: " << cameraRotation.y << std::endl;
 
         camera.rotate(cameraRotation.x * deltaTime, cameraRotation.y * deltaTime, 0);
 

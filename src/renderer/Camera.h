@@ -31,7 +31,7 @@ namespace renderer{
         float fov = 45.0f;
 
         // horizontal and vertical camera rotation
-        float horizontalRot = 90.0f;  //from 0 to 360
+        float horizontalRot = 270.0f;  //from 0 to 360
         float verticalRot = 0.0f;    // from -90 to 90
 
         Window& window;
