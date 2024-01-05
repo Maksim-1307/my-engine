@@ -156,8 +156,12 @@ int main(int argc, char** argv){
 
 
     graphics::Texture testTexture("res/textures/mypng.png", 0);
-    graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
-    testSprite.set_position(vec2(0.3f, -0.1f));
+    graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(0.5, 0.5), FILL);
+    testSprite.set_position(vec2(0.5f, 0.5f));
+
+    graphics::Texture fontTexture("res/fonts/myfont/image.png", 0);
+    graphics::Sprite fontSprite(fontTexture, shaderProgram2D, glm::vec2(0.05, 0.11), FILL);
+    fontSprite.set_position(vec2(-1.0f, 0.8f));
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
@@ -171,6 +175,7 @@ int main(int argc, char** argv){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         testSprite.render();
+        fontSprite.render();
 
         shaderProgram.Use();
 
