@@ -22,11 +22,9 @@ GLuint Texture::load_texture(std::string path){
 
     GLuint textureID = this->id;
 
+    stbi_set_flip_vertically_on_load(true); 
 
-    // ????
-    std::cout << "Warning: causes error when a few textures (Texture.cpp load_texture())" << std::endl;
     glActiveTexture(GL_TEXTURE0);
-
     glBindTexture(GL_TEXTURE_2D, textureID);
 
     unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, 0);
@@ -58,7 +56,6 @@ GLuint Texture::load_texture(std::string path){
 
 void Texture::bind_texture(){
 
-    std::cout << "Warning: causes error when a few textures (Texture.cpp load_texture())" << std::endl;
     glActiveTexture(GL_TEXTURE0);
 
     glBindTexture(GL_TEXTURE_2D, id);

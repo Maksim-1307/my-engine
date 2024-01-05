@@ -146,10 +146,6 @@ int main(int argc, char** argv){
     timemanager::FPSCounter fpsCounter(window, 10);
 
 
-
-
-    /* 2D test*/
-
     std::string vShaderSource_2D;
     std::string fShaderSource_2D;
 
@@ -159,7 +155,7 @@ int main(int argc, char** argv){
     renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
 
 
-    graphics::Texture testTexture("res/textures/mytexture.jpg", 0);
+    graphics::Texture testTexture("res/textures/mytexture2.jpg", 0);
     graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(1, 1), FILL);
     testSprite.set_position(vec2(0.3f, -0.1f));
 
@@ -188,6 +184,7 @@ int main(int argc, char** argv){
 
         view = camera.getView();
         projection = camera.getProjection();
+        model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
 
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
