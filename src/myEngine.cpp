@@ -71,25 +71,19 @@ int main(int argc, char** argv){
         1, 2, 5,
         5, 2, 6,
 
-        9, 10, 11, 
-        9, 12, 11, 
-        9, 13, 12, 
-        13, 16, 12, 
-        12, 16, 11, 
-        16, 11, 15, 
+        8, 9, 10, 
+        8, 11, 10, 
+        8, 12, 11, 
+        12, 15, 11, 
+        11, 15, 10, 
+        15, 10, 14, 
+        8, 9, 12, 
+        12, 9, 13, 
+        12, 13, 14, 
+        12, 14, 15, 
         9, 10, 13, 
-        13, 10, 14, 
-        13, 14, 15, 
-        13, 15, 16, 
-        10, 11, 14, 
-        14, 11, 15
+        13, 10, 14,
     };  
-
-    for (int i = 0; i < 12; i++){
-        for (int j = 0; j < 3; j++){
-            std::cout << indices[i*3 + j] + 9 << ", ";
-        } std::cout << std::endl;
-    }
 
 
     std::string vShaderSource;
@@ -167,7 +161,6 @@ int main(int argc, char** argv){
 
 
     graphics::Mesh cubeMesh(texture, vertices, sizeof(vertices), indices, sizeof(indices));
-    
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
@@ -195,7 +188,7 @@ int main(int argc, char** argv){
 
         view = camera.getView();
         projection = camera.getProjection();
-        model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
+        //model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
 
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
