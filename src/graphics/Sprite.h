@@ -41,13 +41,8 @@ namespace graphics{
         void set_position(glm::vec2 position);
         void resize(glm::vec2 newSize);
         void laod_buffers();
-        void update_UVs();
-        void set_UVs(GLfloat newUVs[6]);
 
         private:
-
-        GLuint vertex_VBO;
-        GLuint texture_VBO;
 
         GLuint VBO;
         GLuint EBO;
@@ -55,8 +50,6 @@ namespace graphics{
 
         GLfloat* vertices;
         GLuint* indices;
-        GLfloat* uv;
-        GLfloat* colors;
         glm::vec2 position = glm::vec2(0, 0);
         glm::vec2 size;
         Texture& texture;

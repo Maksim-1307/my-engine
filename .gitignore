@@ -1,3 +1,4 @@
 build
 tasks.txt
 .DS_Store
+.vscode

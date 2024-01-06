@@ -13,7 +13,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
+#include "constants.h"
 #include "myutils/fileReader.h"
 #include "renderer/ShaderProgram.h"
 #include "renderer/Window.h"
@@ -23,6 +23,7 @@
 #include "graphics/Texture.h"
 #include "time/FPSCounter.h"
 #include "graphics/Sprite.h"
+#include "graphics/Mesh.h"
 
 
 int main(int argc, char** argv){
@@ -36,14 +37,25 @@ int main(int argc, char** argv){
 
 
     GLfloat vertices[] = {
-        0, 0, 0,
-        1, 0, 0,
-        1, 0, 1,
-        0, 0, 1,
-        0, 1, 0,
-        1, 1, 0,
-        1, 1, 1,
-        0, 1, 1
+    //  x  y  z    UV
+        0, 0, 0,   0, 0,
+        1, 0, 0,   1, 0,
+        1, 0, 1,   1, 1,
+        0, 0, 1,   0, 1,
+        0, 1, 0,   0, 0,
+        1, 1, 0,   1, 0,
+        1, 1, 1,   1, 1,
+        0, 1, 1,   0, 1,
+
+        0, 0, 2,   0, 0,
+        1, 0, 2,   1, 0,
+        1, 0, 3,   1, 1,
+        0, 0, 3,   0, 1,
+        0, 1, 2,   0, 0,
+        1, 1, 2,   1, 0,
+        1, 1, 3,   1, 1,
+        0, 1, 3,   0, 1,
+
     };
     GLuint indices[] = { 
         0, 1, 2,
@@ -57,19 +69,28 @@ int main(int argc, char** argv){
         4, 5, 6,
         4, 6, 7,
         1, 2, 5,
-        5, 2, 6
+        5, 2, 6,
+
+        9, 10, 11, 
+        9, 12, 11, 
+        9, 13, 12, 
+        13, 16, 12, 
+        12, 16, 11, 
+        16, 11, 15, 
+        9, 10, 13, 
+        13, 10, 14, 
+        13, 14, 15, 
+        13, 15, 16, 
+        10, 11, 14, 
+        14, 11, 15
     };  
 
-    GLfloat texCoords[]{
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 1,
-        0, 0,
-        1, 0,
-        1, 1,
-        0, 1,
-    };
+    for (int i = 0; i < 12; i++){
+        for (int j = 0; j < 3; j++){
+            std::cout << indices[i*3 + j] + 9 << ", ";
+        } std::cout << std::endl;
+    }
+
 
     std::string vShaderSource;
     std::string fShaderSource;
@@ -86,35 +107,32 @@ int main(int argc, char** argv){
 
     glEnable(GL_DEPTH_TEST);
 
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
 
-    GLuint vertex_VBO;
-    glGenBuffers(1, &vertex_VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
+    GLuint VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    GLuint texture_VBO;
-    glGenBuffers(1, &texture_VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, VERTEX_SIZE * sizeof(GLfloat), (GLvoid*)0);
 
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, texture_VBO);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, VERTEX_SIZE * sizeof(GLfloat), (GLvoid*)((VERTEX_SIZE - 2) * sizeof(GLfloat)));
 
     glBindVertexArray(0); 
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    GLuint EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
     renderer::Camera camera(window);
@@ -148,6 +166,10 @@ int main(int argc, char** argv){
     fontSprite.set_position(vec2(-1.0f, 0.8f));
 
 
+    graphics::Mesh cubeMesh(texture, vertices, sizeof(vertices), indices, sizeof(indices));
+    
+
+
     while(!glfwWindowShouldClose(window.get_glfw_window())){
 
         fpsCounter.update();
@@ -178,13 +200,9 @@ int main(int argc, char** argv){
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
         shaderProgram.set_matrix4("projection", projection);
-
         shaderProgram.set_texture("Texture", texture.get_ID());
 
-        glBindVertexArray(VAO);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        cubeMesh.draw();
 
         glfwSwapBuffers(window.get_glfw_window());
 
