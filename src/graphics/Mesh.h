@@ -20,13 +20,11 @@ namespace graphics{
 
 class Mesh{
     public:
-    Mesh(Texture& texture, GLfloat* vertices, int verticesLength, GLuint* indices, int indicesLength);
+    Mesh(Texture& texture, renderer::ShaderProgram& shaderProgram, GLfloat* vertices, int verticesLength, GLuint* indices, int indicesLength);
     //~Mesh();
 
     void draw();
-    void set_position(glm::vec3 position){
-        this->position = position;
-    };
+    void set_position(glm::vec3 position);
     void load_buffers();
     GLuint get_VAO();
     GLuint get_EBO();
@@ -37,6 +35,8 @@ class Mesh{
     int indicesLength;
     glm::vec3 position = glm::vec3(0.0f,0.0f,0.0f);
     Texture& texture;
+    glm::mat4 model = glm::mat4(1.0f);
+    renderer::ShaderProgram& shaderProgram;
 
     private:
     GLuint VAO, VBO, EBO;

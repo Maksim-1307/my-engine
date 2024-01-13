@@ -2,13 +2,15 @@
 
 using namespace graphics;
 
-Mesh::Mesh(Texture& texture, GLfloat* vertices, int verticesLength, GLuint* indices, int indicesLength) : texture(texture){
+Mesh::Mesh(Texture& texture, renderer::ShaderProgram& shaderProgram, GLfloat* vertices, int verticesLength, GLuint* indices, int indicesLength) : texture(texture), shaderProgram(shaderProgram){
     this->texture = texture;
     this->vertices = vertices;
     this->verticesLength = verticesLength;
     this->indices = indices;
     this->indicesLength = indicesLength;
+    this->shaderProgram = shaderProgram;
 
+    set_position(position);
     load_buffers();
 };
 
@@ -62,4 +64,10 @@ GLuint Mesh::get_EBO(){
         load_buffers();
     }
     return EBO;
+}
+
+void Mesh::set_position(glm::vec3 newPosition){
+    position = newPosition;
+    model = glm::translate(glm::mat4(1.0f), position);
+    shaderProgram.set_matrix4("model", model);
 }

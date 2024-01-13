@@ -88,45 +88,21 @@ int main(int argc, char** argv){
 
     std::string vShaderSource;
     std::string fShaderSource;
-
     myutils::readFile(SHADERS_PATH "shader-v.glsl", &vShaderSource);
     myutils::readFile(SHADERS_PATH "shader-f.glsl", &fShaderSource);
 
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
 
+    std::string vShaderSource_2D;
+    std::string fShaderSource_2D;
+    myutils::readFile(SHADERS_PATH "shader2D-v.glsl", &vShaderSource_2D);
+    myutils::readFile(SHADERS_PATH "test-f.glsl", &fShaderSource_2D);
+
+    renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
+
 
 
     graphics::Texture texture("res/textures/mytexture.jpg", 0);
-
-
-    glEnable(GL_DEPTH_TEST);
-
-
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, VERTEX_SIZE * sizeof(GLfloat), (GLvoid*)0);
-
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, VERTEX_SIZE * sizeof(GLfloat), (GLvoid*)((VERTEX_SIZE - 2) * sizeof(GLfloat)));
-
-    glBindVertexArray(0); 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
     renderer::Camera camera(window);
@@ -142,15 +118,6 @@ int main(int argc, char** argv){
     timemanager::FPSCounter fpsCounter(window, 10);
 
 
-    std::string vShaderSource_2D;
-    std::string fShaderSource_2D;
-
-    myutils::readFile(SHADERS_PATH "shader2D-v.glsl", &vShaderSource_2D);
-    myutils::readFile(SHADERS_PATH "test-f.glsl", &fShaderSource_2D);
-
-    renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
-
-
     graphics::Texture testTexture("res/textures/mypng.png", 0);
     graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(0.5, 0.5), FILL);
     testSprite.set_position(vec2(0.5f, 0.5f));
@@ -160,7 +127,7 @@ int main(int argc, char** argv){
     fontSprite.set_position(vec2(-1.0f, 0.8f));
 
 
-    graphics::Mesh cubeMesh(texture, vertices, sizeof(vertices), indices, sizeof(indices));
+    graphics::Mesh cubeMesh(texture, shaderProgram, vertices, sizeof(vertices), indices, sizeof(indices));
 
 
     while(!glfwWindowShouldClose(window.get_glfw_window())){
@@ -188,7 +155,7 @@ int main(int argc, char** argv){
 
         view = camera.getView();
         projection = camera.getProjection();
-        //model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
 
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
@@ -196,6 +163,8 @@ int main(int argc, char** argv){
         shaderProgram.set_texture("Texture", texture.get_ID());
 
         cubeMesh.draw();
+
+        std::cout  << fpsCounter.get_FPS() << std::endl;
 
         glfwSwapBuffers(window.get_glfw_window());
 

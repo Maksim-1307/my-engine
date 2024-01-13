@@ -35,6 +35,7 @@ namespace renderer{
         }
 
         glClearColor(0.3f, 0.3f, 0.5f, 1.0f);
+        glEnable(GL_DEPTH_TEST);
 
         glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
