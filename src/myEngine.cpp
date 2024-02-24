@@ -25,65 +25,95 @@
 #include "graphics/Sprite.h"
 #include "graphics/Mesh.h"
 
+#include "voxels/Block.h"
+#include "voxels/BlockFace.h"
+#include "world/Chunk.h"
 
-int main(int argc, char** argv){
+using namespace graphics;
+
+BlockFace emptyBf;
+
+BlockFace stoneFaces[]{
+    BlockFace(),
+    BlockFace(),
+    BlockFace(),
+    BlockFace(),
+    BlockFace(),
+    BlockFace()
+};
+
+void make_buffers(graphics::Mesh & mesh, GLuint & VBO, GLuint & VAO, GLuint & EBO){
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(GLfloat), &mesh.vertices[0], GL_STATIC_DRAW);
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+
+    glBindVertexArray(0); 
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.indices.size() * sizeof(GLuint), &mesh.indices[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void draw(GLuint & VAO, GLuint & EBO, int size){
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}
+
+int main(int argc, char **argv)
+{
 
     myutils::setCurrentDirectory(argv);
 
     renderer::WindowArgs windowArgs;
     windowArgs.name = "myEngine";
 
-    renderer::Window window( windowArgs );
+    renderer::Window window(windowArgs);
+
+    graphics::Mesh cubeMesh;
+
+    Chunk chunk;
+    chunk.generate();
+    chunk.updateVoxels();
 
 
-    GLfloat vertices[] = {
-    //  x  y  z    UV
-        0, 0, 0,   0, 0,
-        1, 0, 0,   1, 0,
-        1, 0, 1,   1, 1,
-        0, 0, 1,   0, 1,
-        0, 1, 0,   0, 0,
-        1, 1, 0,   1, 0,
-        1, 1, 1,   1, 1,
-        0, 1, 1,   0, 1,
+    // Block Air(0, getFaceAir);
+    // Block Stone(1, getFaceStone);
 
-        0, 0, 2,   0, 0,
-        1, 0, 2,   1, 0,
-        1, 0, 3,   1, 1,
-        0, 0, 3,   0, 1,
-        0, 1, 2,   0, 0,
-        1, 1, 2,   1, 0,
-        1, 1, 3,   1, 1,
-        0, 1, 3,   0, 1,
+    GLfloat* vertices;
+    GLuint* indices;
 
-    };
-    GLuint indices[] = { 
-        0, 1, 2,
-        0, 3, 2,
-        0, 4, 3,
-        4, 7, 3,
-        3, 7, 2,
-        7, 2, 6,
-        0, 1, 4,
-        4, 1, 5,
-        4, 5, 6,
-        4, 6, 7,
-        1, 2, 5,
-        5, 2, 6,
+    //setFaces();
 
-        8, 9, 10, 
-        8, 11, 10, 
-        8, 12, 11, 
-        12, 15, 11, 
-        11, 15, 10, 
-        15, 10, 14, 
-        8, 9, 12, 
-        12, 9, 13, 
-        12, 13, 14, 
-        12, 14, 15, 
-        9, 10, 13, 
-        13, 10, 14,
-    };  
+
+    // BlockFace faceTop = Stone.getFace(0, Air.voxel);
+    // vertices = &(faceTop.vertices[0]);
+    // indices = &(faceTop.indices[0]);
+    // int vertices_len = face.vertices.size();
+    // int indices_len = face.indices.size();
+
+    // for (int i = 0; i < 6; i++){
+    //     Stone.getFace(i, Air.voxel, cubeMesh);
+    // }
+
+    GLuint vao;
+    GLuint vbo;
+    GLuint ebo;
+
+    make_buffers(chunk.mesh, vbo, vao, ebo);
+
 
 
     std::string vShaderSource;
@@ -93,44 +123,21 @@ int main(int argc, char** argv){
 
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
 
-    std::string vShaderSource_2D;
-    std::string fShaderSource_2D;
-    myutils::readFile(SHADERS_PATH "shader2D-v.glsl", &vShaderSource_2D);
-    myutils::readFile(SHADERS_PATH "test-f.glsl", &fShaderSource_2D);
-
-    renderer::ShaderProgram shaderProgram2D(vShaderSource_2D, fShaderSource_2D);
-
-
-
     graphics::Texture texture("res/textures/mytexture.jpg", 0);
-
 
     renderer::Camera camera(window);
     input::Mouse mouse(window);
-
 
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
 
-    model = glm::rotate(model, glm::radians(90.0f) , glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
     timemanager::FPSCounter fpsCounter(window, 10);
 
-
-    graphics::Texture testTexture("res/textures/mypng.png", 0);
-    graphics::Sprite testSprite(testTexture, shaderProgram2D, glm::vec2(0.5, 0.5), FILL);
-    testSprite.set_position(vec2(0.5f, 0.5f));
-
-    graphics::Texture fontTexture("res/fonts/myfont/image.png", 0);
-    graphics::Sprite fontSprite(fontTexture, shaderProgram2D, glm::vec2(0.05, 0.11), FILL);
-    fontSprite.set_position(vec2(-1.0f, 0.8f));
-
-
-    graphics::Mesh cubeMesh(texture, shaderProgram, vertices, sizeof(vertices), indices, sizeof(indices));
-
-
-    while(!glfwWindowShouldClose(window.get_glfw_window())){
+    while (!glfwWindowShouldClose(window.get_glfw_window()))
+    {
 
         fpsCounter.update();
 
@@ -140,38 +147,31 @@ int main(int argc, char** argv){
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        testSprite.render();
-        fontSprite.render();
-
         shaderProgram.Use();
+
+        draw(vao, ebo, chunk.mesh.vertices.size());
 
         glm::vec2 cameraRotation = mouse.update();
 
         camera.rotate(cameraRotation.x * deltaTime, cameraRotation.y * deltaTime, 0);
 
-
         input::process_keys(window, camera, deltaTime);
-
 
         view = camera.getView();
         projection = camera.getProjection();
-        model = glm::rotate(model, glm::radians(10.0f) * deltaTime , glm::vec3(1.0f, 1.0f, 0.0f));
+        //model = glm::rotate(model, glm::radians(10.0f) * deltaTime, glm::vec3(1.0f, 1.0f, 0.0f));
 
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
         shaderProgram.set_matrix4("projection", projection);
         shaderProgram.set_texture("Texture", texture.get_ID());
 
-        cubeMesh.draw();
-
-        std::cout  << fpsCounter.get_FPS() << std::endl;
+        std::cout << fpsCounter.get_FPS() << std::endl;
 
         glfwSwapBuffers(window.get_glfw_window());
-
     }
 
     glfwTerminate();
 
     return 0;
 }
-
