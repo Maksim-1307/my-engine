@@ -417,6 +417,30 @@ src/voxels/BlocksData.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.s
 .PHONY : src/voxels/BlocksData.cpp.s
 
+src/voxels/ChunkRenderer.o: src/voxels/ChunkRenderer.cpp.o
+.PHONY : src/voxels/ChunkRenderer.o
+
+# target to build an object file
+src/voxels/ChunkRenderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o
+.PHONY : src/voxels/ChunkRenderer.cpp.o
+
+src/voxels/ChunkRenderer.i: src/voxels/ChunkRenderer.cpp.i
+.PHONY : src/voxels/ChunkRenderer.i
+
+# target to preprocess a source file
+src/voxels/ChunkRenderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.i
+.PHONY : src/voxels/ChunkRenderer.cpp.i
+
+src/voxels/ChunkRenderer.s: src/voxels/ChunkRenderer.cpp.s
+.PHONY : src/voxels/ChunkRenderer.s
+
+# target to generate assembly for a file
+src/voxels/ChunkRenderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.s
+.PHONY : src/voxels/ChunkRenderer.cpp.s
+
 src/world/ChukStorage.o: src/world/ChukStorage.cpp.o
 .PHONY : src/world/ChukStorage.o
 
@@ -440,30 +464,6 @@ src/world/ChukStorage.s: src/world/ChukStorage.cpp.s
 src/world/ChukStorage.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.s
 .PHONY : src/world/ChukStorage.cpp.s
-
-src/world/ChunckRenderer.o: src/world/ChunckRenderer.cpp.o
-.PHONY : src/world/ChunckRenderer.o
-
-# target to build an object file
-src/world/ChunckRenderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o
-.PHONY : src/world/ChunckRenderer.cpp.o
-
-src/world/ChunckRenderer.i: src/world/ChunckRenderer.cpp.i
-.PHONY : src/world/ChunckRenderer.i
-
-# target to preprocess a source file
-src/world/ChunckRenderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.i
-.PHONY : src/world/ChunckRenderer.cpp.i
-
-src/world/ChunckRenderer.s: src/world/ChunckRenderer.cpp.s
-.PHONY : src/world/ChunckRenderer.s
-
-# target to generate assembly for a file
-src/world/ChunckRenderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/voxelGame.dir/build.make CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.s
-.PHONY : src/world/ChunckRenderer.cpp.s
 
 src/world/Chunk.o: src/world/Chunk.cpp.o
 .PHONY : src/world/Chunk.o
@@ -582,12 +582,12 @@ help:
 	@echo "... src/voxels/BlocksData.o"
 	@echo "... src/voxels/BlocksData.i"
 	@echo "... src/voxels/BlocksData.s"
+	@echo "... src/voxels/ChunkRenderer.o"
+	@echo "... src/voxels/ChunkRenderer.i"
+	@echo "... src/voxels/ChunkRenderer.s"
 	@echo "... src/world/ChukStorage.o"
 	@echo "... src/world/ChukStorage.i"
 	@echo "... src/world/ChukStorage.s"
-	@echo "... src/world/ChunckRenderer.o"
-	@echo "... src/world/ChunckRenderer.i"
-	@echo "... src/world/ChunckRenderer.s"
 	@echo "... src/world/Chunk.o"
 	@echo "... src/world/Chunk.i"
 	@echo "... src/world/Chunk.s"

@@ -4,18 +4,22 @@ using namespace graphics;
 
 template <typename T>
 void merge_vectors(std::vector<T> &target, std::vector<T> source){
+    int start = target.size();
     for (T el : source){
-        target.push_back(el);
+        target[start] = el;
+        //target.resize(start+1);
+        start++;
+        //target.push_back(el);
     }
 }
 
-void getFaceAir(int face, voxel &voxel, Mesh &mesh, std::vector<float> pos)
+void getFaceAir(int face, voxel &voxel, Mesh &mesh, glm::vec3 pos)
 {
     //return 0;
 }
 
 // в дальнейшем сделать чтобы возвращал mesh
-void getFaceStone(int face, voxel &voxel, Mesh &mesh, std::vector<float> pos) {
+void getFaceStone(int face, voxel &voxel, Mesh &mesh, glm::vec3 pos) {
     BlockFace bf;
     unsigned int size = mesh.vertices.size() / VERTEX_SIZE;
     if (face == 0){ // y+
@@ -103,4 +107,5 @@ void BlocksData::init_blocks(){
         blocks[0].openFaces[i] = 1;
         blocks[1].openFaces[i] = 0;
     }
+    std::cout << "\n\nStone voxel id is: " << (int)blocks[1].voxel.id;
 }

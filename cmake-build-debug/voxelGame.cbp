@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="voxelGame"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\glew\;CMake Files\..\..\..\..\usr\local\lib\cmake\glm\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="voxelGame">
+				<Option output="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/voxelGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk/System/Library/Frameworks/OpenGL.framework"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 voxelGame"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="voxelGame/fast">
+				<Option output="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/voxelGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk/System/Library/Frameworks/OpenGL.framework"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/lib"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 voxelGame/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Mesh.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Mesh.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Sprite.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Sprite.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Texture.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/graphics/Texture.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/include/stb_image.hpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/input/Mouse.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/input/Mouse.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/myEngine.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/myutils/fileReader.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/myutils/fileReader.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/Camera.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/Camera.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/ShaderProgram.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/ShaderProgram.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/Window.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/renderer/Window.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/time/FPSCounter.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/time/FPSCounter.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/voxels/Block.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/voxels/Block.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/voxels/BlocksData.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/voxels/BlocksData.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/ChukStorage.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/Chunk.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/Chunk.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/Generator.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/Generator.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/World.cpp">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/src/world/World.h">
+			<Option target="voxelGame"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glew/CopyImportedTargetProperties.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glew\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glew/glew-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glew\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glew/glew-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glew\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glew/glew-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glew\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glm/GLMConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glm\"/>
+		</Unit>
+		<Unit filename="/Users/maksimmaltsev/Desktop/myEngine/../../../../usr/local/lib/cmake/glm/GLMConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\glm\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

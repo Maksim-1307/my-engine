@@ -28,8 +28,10 @@
 #include "voxels/Block.h"
 #include "voxels/BlockFace.h"
 #include "world/Chunk.h"
+#include "voxels/ChunkRenderer.h"
 
 using namespace graphics;
+using namespace std;
 
 BlockFace emptyBf;
 
@@ -42,10 +44,10 @@ BlockFace stoneFaces[]{
     BlockFace()
 };
 
-void make_buffers(graphics::Mesh & mesh, GLuint & VBO, GLuint & VAO, GLuint & EBO){
+void make_buffers(float * verticesPointer, int verticesLen, int * indicesPointer, int indicesLen, GLuint & VBO, GLuint & VAO, GLuint & EBO){
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(GLfloat), &mesh.vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, verticesLen * sizeof(GLfloat), verticesPointer, GL_STATIC_DRAW);
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -61,7 +63,7 @@ void make_buffers(graphics::Mesh & mesh, GLuint & VBO, GLuint & VAO, GLuint & EB
 
     glGenBuffers(1, &EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.indices.size() * sizeof(GLuint), &mesh.indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesLen * sizeof(GLuint), indicesPointer, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
@@ -86,11 +88,46 @@ int main(int argc, char **argv)
 
     Chunk chunk;
     chunk.generate();
-    chunk.updateVoxels();
+
+    cout << "\n";
+    // for (int x = 1; x < CHUNK_WIDTH-1; x++){
+    //     for (int y = 1; y < CHUNK_HEIGHT-1; y++){
+    //         for (int z = 1; z < CHUNK_WIDTH-1; z++){
+    //             cout << (int)chunk.blocksData[x][y][z].id;
+    //         } cout << "\n";
+    //     } cout << "\n\n";
+    // }
+
+    voxel vox;
+    vox.id = 0;
+    vox.state = 0;
+
+    ChunkRenderer renderer;
+    renderer.render(chunk);
+
+    cout << "Voxels: " << renderer.vertexCount << "\n";
+    cout << "Indices: " << renderer.indicesCount << "\n";
+    for (int i = 0; i < renderer.vertexCount; i++){
+
+        if (i % 5 == 0){
+            cout << "\n";
+        }
+        cout << renderer.vertices[i] << " ";
+
+    }
+    cout << "\n\n\n";
+
+    for (int i = 0; i < renderer.indicesCount; i++){
+
+        if (i % 3 == 0){
+            cout << "\n";
+        }
+        cout << renderer.indices[i] << " ";
+
+    }
 
 
-    // Block Air(0, getFaceAir);
-    // Block Stone(1, getFaceStone);
+    //chunk.updateVoxels();
 
     GLfloat* vertices;
     GLuint* indices;
@@ -112,7 +149,7 @@ int main(int argc, char **argv)
     GLuint vbo;
     GLuint ebo;
 
-    make_buffers(chunk.mesh, vbo, vao, ebo);
+    make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
 
 
 
@@ -123,7 +160,7 @@ int main(int argc, char **argv)
 
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
 
-    graphics::Texture texture("res/textures/mytexture.jpg", 0);
+    graphics::Texture texture("res/textures/stone.png", 0);
 
     renderer::Camera camera(window);
     input::Mouse mouse(window);
@@ -149,7 +186,10 @@ int main(int argc, char **argv)
 
         shaderProgram.Use();
 
-        draw(vao, ebo, chunk.mesh.vertices.size());
+        chunk.generate();
+        renderer.render(chunk);
+        make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
+        draw(vao, ebo, renderer.vertexCount);
 
         glm::vec2 cameraRotation = mouse.update();
 
@@ -175,3 +215,40 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+
+/*
+
+
+1 0 0  
+1 0 1
+1 1 0  
+1 1 1
+
+0 0 0
+0 0 1
+0 1 0
+0 1 1 
+
+0 1 0
+0 1 1
+1 1 0
+1 1 1 
+
+0 0 0
+0 0 6  
+1 0 0 
+1 0 1
+
+0 0 1
+0 1 1
+1 0 1
+1 1 1 
+
+0 0 0 
+0 1 0
+1 0 0
+1 1 0
+
+
+*/

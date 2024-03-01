@@ -1,0 +1,3 @@
+/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/maksimmaltsev/Desktop/myEngine/cmake-build-debug/CMakeFiles/voxelGame.dir

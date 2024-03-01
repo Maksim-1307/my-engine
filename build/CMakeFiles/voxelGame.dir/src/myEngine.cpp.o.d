@@ -1090,4 +1090,9 @@ CMakeFiles/voxelGame.dir/src/myEngine.cpp.o: \
   /Users/maksimmaltsev/Desktop/myEngine/src/world/Chunk.h \
   /Users/maksimmaltsev/Desktop/myEngine/src/world/../voxels/voxel.h \
   /Users/maksimmaltsev/Desktop/myEngine/src/world/../graphics/Mesh.h \
-  /Users/maksimmaltsev/Desktop/myEngine/src/world/../voxels/BlocksData.h
+  /Users/maksimmaltsev/Desktop/myEngine/src/world/../voxels/BlocksData.h \
+  /Users/maksimmaltsev/Desktop/myEngine/src/voxels/ChunkRenderer.h \
+  /Users/maksimmaltsev/Desktop/myEngine/src/voxels/../voxels/voxel.h \
+  /Users/maksimmaltsev/Desktop/myEngine/src/voxels/../voxels/BlocksData.h \
+  /Users/maksimmaltsev/Desktop/myEngine/src/voxels/../world/Chunk.h \
+  /Users/maksimmaltsev/Desktop/myEngine/src/voxels/../constants.h

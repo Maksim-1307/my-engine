@@ -6,6 +6,7 @@
 #include "BlockFace.h"
 #include "Block.h"
 #include "../graphics/Mesh.h"
+#include <glm/glm.hpp>
 
 class BlocksData {
     public:

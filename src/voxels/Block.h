@@ -8,10 +8,10 @@
 
 class Block{
     public:
-        Block(int id, void (*getFace)(int face, struct voxel& voxel, graphics::Mesh& mesh, std::vector<float> pos));
+        Block(int id, void (*getFace)(int face, struct voxel& voxel, graphics::Mesh& mesh, glm::vec3 pos));
         Block(){};
 
-        void (*getFace)(int face, voxel& voxel, graphics::Mesh &mesh,  std::vector<float> pos);
+        void (*getFace)(int face, voxel& voxel, graphics::Mesh &mesh,  glm::vec3 pos);
         bool openFaces[6];
         voxel voxel;
 };

@@ -237,10 +237,24 @@ CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/maksimmaltsev/Desktop/myEngine/src/voxels/BlocksData.cpp -o CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.s
 
+CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o: CMakeFiles/voxelGame.dir/flags.make
+CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o: /Users/maksimmaltsev/Desktop/myEngine/src/voxels/ChunkRenderer.cpp
+CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o: CMakeFiles/voxelGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maksimmaltsev/Desktop/myEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o -MF CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o.d -o CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o -c /Users/maksimmaltsev/Desktop/myEngine/src/voxels/ChunkRenderer.cpp
+
+CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/maksimmaltsev/Desktop/myEngine/src/voxels/ChunkRenderer.cpp > CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.i
+
+CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/maksimmaltsev/Desktop/myEngine/src/voxels/ChunkRenderer.cpp -o CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.s
+
 CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o: CMakeFiles/voxelGame.dir/flags.make
 CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o: /Users/maksimmaltsev/Desktop/myEngine/src/world/ChukStorage.cpp
 CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o: CMakeFiles/voxelGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maksimmaltsev/Desktop/myEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maksimmaltsev/Desktop/myEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o -MF CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o.d -o CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o -c /Users/maksimmaltsev/Desktop/myEngine/src/world/ChukStorage.cpp
 
 CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.i: cmake_force
@@ -250,20 +264,6 @@ CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.i: cmake_force
 CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/maksimmaltsev/Desktop/myEngine/src/world/ChukStorage.cpp -o CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.s
-
-CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o: CMakeFiles/voxelGame.dir/flags.make
-CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o: /Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.cpp
-CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o: CMakeFiles/voxelGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maksimmaltsev/Desktop/myEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o -MF CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o.d -o CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o -c /Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.cpp
-
-CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.cpp > CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.i
-
-CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/maksimmaltsev/Desktop/myEngine/src/world/ChunckRenderer.cpp -o CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.s
 
 CMakeFiles/voxelGame.dir/src/world/Chunk.cpp.o: CMakeFiles/voxelGame.dir/flags.make
 CMakeFiles/voxelGame.dir/src/world/Chunk.cpp.o: /Users/maksimmaltsev/Desktop/myEngine/src/world/Chunk.cpp
@@ -321,8 +321,8 @@ voxelGame_OBJECTS = \
 "CMakeFiles/voxelGame.dir/src/time/FPSCounter.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/voxels/Block.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.o" \
+"CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o" \
-"CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/world/Chunk.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/world/Generator.cpp.o" \
 "CMakeFiles/voxelGame.dir/src/world/World.cpp.o"
@@ -342,8 +342,8 @@ voxelGame: CMakeFiles/voxelGame.dir/src/renderer/Window.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/time/FPSCounter.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/voxels/Block.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/voxels/BlocksData.cpp.o
+voxelGame: CMakeFiles/voxelGame.dir/src/voxels/ChunkRenderer.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/world/ChukStorage.cpp.o
-voxelGame: CMakeFiles/voxelGame.dir/src/world/ChunckRenderer.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/world/Chunk.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/world/Generator.cpp.o
 voxelGame: CMakeFiles/voxelGame.dir/src/world/World.cpp.o

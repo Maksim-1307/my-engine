@@ -10,7 +10,10 @@
 
 class Chunk{
     public:
-    Chunk(){};
+    Chunk(){
+        mesh.vertices.reserve(1024);
+        mesh.indices.reserve(1024);
+    };
 
     int x, z;
     voxel blocksData[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
