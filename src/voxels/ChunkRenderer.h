@@ -20,6 +20,7 @@ using namespace std;
 class ChunkRenderer{
     public:
     ChunkRenderer(){};
+    ~ChunkRenderer(){};
 
     void render(Chunk & chunk);
     void vertex(float x, float y, float z, float UVx, float UVy);
@@ -33,4 +34,5 @@ class ChunkRenderer{
     float * vertices = (float*)malloc(10000 * sizeof(float));
     int * indices = (int*)malloc(10000 * sizeof(int));
     Block nearBlock;
+    Chunk chunk;
 };

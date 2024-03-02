@@ -29,6 +29,7 @@
 #include "voxels/BlockFace.h"
 #include "world/Chunk.h"
 #include "voxels/ChunkRenderer.h"
+#include "world/World.h"
 
 using namespace graphics;
 using namespace std;
@@ -87,6 +88,7 @@ int main(int argc, char **argv)
     graphics::Mesh cubeMesh;
 
     Chunk chunk;
+    chunk.x = 2;
     chunk.generate();
 
     cout << "\n";
@@ -103,28 +105,28 @@ int main(int argc, char **argv)
     vox.state = 0;
 
     ChunkRenderer renderer;
-    renderer.render(chunk);
+    //renderer.render(chunk);
 
-    cout << "Voxels: " << renderer.vertexCount << "\n";
-    cout << "Indices: " << renderer.indicesCount << "\n";
-    for (int i = 0; i < renderer.vertexCount; i++){
+    // cout << "Voxels: " << renderer.vertexCount << "\n";
+    // cout << "Indices: " << renderer.indicesCount << "\n";
+    // for (int i = 0; i < renderer.vertexCount; i++){
 
-        if (i % 5 == 0){
-            cout << "\n";
-        }
-        cout << renderer.vertices[i] << " ";
+    //     if (i % 5 == 0){
+    //         cout << "\n";
+    //     }
+    //     cout << renderer.vertices[i] << " ";
 
-    }
-    cout << "\n\n\n";
+    // }
+    // cout << "\n\n\n";
 
-    for (int i = 0; i < renderer.indicesCount; i++){
+    // for (int i = 0; i < renderer.indicesCount; i++){
 
-        if (i % 3 == 0){
-            cout << "\n";
-        }
-        cout << renderer.indices[i] << " ";
+    //     if (i % 3 == 0){
+    //         cout << "\n";
+    //     }
+    //     cout << renderer.indices[i] << " ";
 
-    }
+    // }
 
 
     //chunk.updateVoxels();
@@ -145,12 +147,13 @@ int main(int argc, char **argv)
     //     Stone.getFace(i, Air.voxel, cubeMesh);
     // }
 
-    GLuint vao;
-    GLuint vbo;
-    GLuint ebo;
+    // GLuint vao;
+    // GLuint vbo;
+    // GLuint ebo;
 
-    make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
+    //make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
 
+    World world;
 
 
     std::string vShaderSource;
@@ -173,23 +176,42 @@ int main(int argc, char **argv)
 
     timemanager::FPSCounter fpsCounter(window, 10);
 
+    int test = 0;
+
+    // for (int x = -3; x < 4; x++){
+    //     for (int z = -3; z < 4; z++){
+    //         world.load_chunk(ivec2(x, z));
+    //         break;
+    //     }
+    // }
+
+    world.load_chunk(ivec2(0, 0));
+    cout << "deb1\n";
+    renderer.render(*world.chunks[ivec2(0, 0)]);
+    cout << "deb2\n";
+    world.chunks[ivec2(0, 0)]->make_buffers();
+    cout << "deb3\n";
+
     while (!glfwWindowShouldClose(window.get_glfw_window()))
     {
-
         fpsCounter.update();
 
         float deltaTime = fpsCounter.deltaTime;
 
         glfwPollEvents();
 
+
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.Use();
 
-        chunk.generate();
-        renderer.render(chunk);
-        make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
-        draw(vao, ebo, renderer.vertexCount);
+        //chunk.generate();
+        // renderer.render(chunk);
+        // chunk.make_buffers();
+        // chunk.draw();
+        // make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
+        // draw(vao, ebo, renderer.vertexCount);
 
         glm::vec2 cameraRotation = mouse.update();
 

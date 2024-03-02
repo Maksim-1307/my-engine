@@ -16,15 +16,18 @@ id   axis
 
 */
 
-
 void ChunkRenderer::render(Chunk & chunk){
     vertexCount = 0;
     indicesCount = 0;
+            cout << "dfghj\n";
+    this->chunk = chunk; // <- this is a segfault 
+                cout << "dfghj2\n";
     for (int x = 1; x < CHUNK_WIDTH-1; x++){
         for (int y = 1; y < CHUNK_HEIGHT-1; y++){
             for (int z = 1; z < CHUNK_WIDTH-1; z++){
                 currentCoords = vec3(x, y, z);
                 voxel vox = chunk.blocksData[x][y][z];
+                cout << vox.id << " ";
                 Block block = BlocksData::BlocksStorage.blocks[(int)vox.id];
                 //Block nearBlock;
                 for (int face = 0; face < 6; face++){
@@ -57,9 +60,13 @@ void ChunkRenderer::render(Chunk & chunk){
                         }
                     } 
                 }
-            }
+            } cout << "\n";
         }
     }
+    chunk.indices = this->indices;
+    chunk.vertices = this->vertices;
+    chunk.indicesSize = indicesCount;
+    chunk.verticesSize = vertexCount;
 }
 
 
@@ -120,9 +127,12 @@ void ChunkRenderer::modelAir(int face, voxel &voxel){
 
 
 void ChunkRenderer::vertex(float x, float y, float z, float UVx, float UVy){
-    vertices[vertexCount++] = x + currentCoords.x;
+
+    //cout << "vertex: " << vertexCount << "\n";
+
+    vertices[vertexCount++] = x + currentCoords.x + chunk.x * CHUNK_WIDTH;
     vertices[vertexCount++] = y + currentCoords.y;
-    vertices[vertexCount++] = z + currentCoords.z;
+    vertices[vertexCount++] = z + currentCoords.z + chunk.z * CHUNK_HEIGHT;
     vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVx + nearBlock.uv.x / ATLAS_SIZE;
     vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVy + nearBlock.uv.y / ATLAS_SIZE;
 }

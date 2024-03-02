@@ -19,6 +19,8 @@ namespace renderer{
 
         this->GLFWwindow = glfwCreateWindow(width, height, args.name.c_str(), nullptr, nullptr);
 
+        glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
         if (!GLFWwindow){
             std::cerr << "ERROR: failed to create a GLFW window" << std::endl;
             exit(-1);
@@ -36,8 +38,6 @@ namespace renderer{
 
         glClearColor(0.3f, 0.3f, 0.5f, 1.0f);
         glEnable(GL_DEPTH_TEST);
-
-        glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
 
     Window::~Window(){
