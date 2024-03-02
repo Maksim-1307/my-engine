@@ -103,9 +103,12 @@ BlocksData::BlocksData(){
 void BlocksData::init_blocks(){
     blocks.push_back(Block(0, getFaceAir));
     blocks.push_back(Block(1, getFaceStone));
+    blocks.push_back(Block(2, getFaceStone));
     for (int i = 0; i < 6; i++){
         blocks[0].openFaces[i] = 1;
         blocks[1].openFaces[i] = 0;
+        blocks[2].openFaces[i] = 0;
     }
-    std::cout << "\n\nStone voxel id is: " << (int)blocks[1].voxel.id;
+    blocks[1].uv = glm::vec2(1, 0);
+    blocks[2].uv = glm::vec2(0, 1);
 }

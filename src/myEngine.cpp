@@ -160,7 +160,7 @@ int main(int argc, char **argv)
 
     renderer::ShaderProgram shaderProgram(vShaderSource, fShaderSource);
 
-    graphics::Texture texture("res/textures/stone.png", 0);
+    graphics::Texture texture("res/textures/atlas.png", 0);
 
     renderer::Camera camera(window);
     input::Mouse mouse(window);

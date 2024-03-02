@@ -26,7 +26,7 @@ void ChunkRenderer::render(Chunk & chunk){
                 currentCoords = vec3(x, y, z);
                 voxel vox = chunk.blocksData[x][y][z];
                 Block block = chunk.blData.blocks[(int)vox.id];
-                Block nearBlock;
+                //Block nearBlock;
                 for (int face = 0; face < 6; face++){
                     voxel nearVox;
                     if (block.openFaces[face]){
@@ -52,7 +52,7 @@ void ChunkRenderer::render(Chunk & chunk){
                         }
                         nearBlock = chunk.blData.blocks[(int)nearVox.id];
 
-                        if (nearVox.id == 1){
+                        if (nearVox.id != 0){
                             modelCube(face, vox);
                         }
                     } 
@@ -75,14 +75,14 @@ void ChunkRenderer::modelCube(int face, voxel &voxel){
     switch(face){
         case 0: // X+
             vertex(1, 0, 0, 0, 0);
-            vertex(1, 0, 1, 0, 1);
-            vertex(1, 1, 0, 1, 0);
+            vertex(1, 0, 1, 1, 0);
+            vertex(1, 1, 0, 0, 1);
             vertex(1, 1, 1, 1, 1);
             break;
         case 1: // X-
             vertex(0, 0, 0, 0, 0);
-            vertex(0, 0, 1, 0, 1);
-            vertex(0, 1, 0, 1, 0);
+            vertex(0, 0, 1, 1, 0);
+            vertex(0, 1, 0, 0, 1);
             vertex(0, 1, 1, 1, 1);
             break;
         case 2: // Y+
@@ -123,6 +123,6 @@ void ChunkRenderer::vertex(float x, float y, float z, float UVx, float UVy){
     vertices[vertexCount++] = x + currentCoords.x;
     vertices[vertexCount++] = y + currentCoords.y;
     vertices[vertexCount++] = z + currentCoords.z;
-    vertices[vertexCount++] = UVx;
-    vertices[vertexCount++] = UVy;
+    vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVx + nearBlock.uv.x / ATLAS_SIZE;
+    vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVy + nearBlock.uv.y / ATLAS_SIZE;
 }

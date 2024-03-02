@@ -12,6 +12,8 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#define ATLAS_SIZE 8
+
 using namespace glm;
 using namespace std;
 
@@ -30,4 +32,5 @@ class ChunkRenderer{
     int indicesCount = 0;
     float * vertices = (float*)malloc(10000 * sizeof(float));
     int * indices = (int*)malloc(10000 * sizeof(int));
+    Block nearBlock;
 };
