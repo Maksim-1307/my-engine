@@ -19,9 +19,9 @@ class Chunk{
     voxel blocksData[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
     graphics::Mesh mesh;
 
-    BlocksData blData;
+    //BlocksData blData;
 
-    void updateVoxels();
+    //void updateVoxels();
     void generate();
 
 };

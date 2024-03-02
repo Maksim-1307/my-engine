@@ -13,4 +13,6 @@ class BlocksData {
     BlocksData();
     void init_blocks();
     std::vector<Block> blocks;
+
+    static BlocksData BlocksStorage;
 };

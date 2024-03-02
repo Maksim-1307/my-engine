@@ -25,7 +25,7 @@ void ChunkRenderer::render(Chunk & chunk){
             for (int z = 1; z < CHUNK_WIDTH-1; z++){
                 currentCoords = vec3(x, y, z);
                 voxel vox = chunk.blocksData[x][y][z];
-                Block block = chunk.blData.blocks[(int)vox.id];
+                Block block = BlocksData::BlocksStorage.blocks[(int)vox.id];
                 //Block nearBlock;
                 for (int face = 0; face < 6; face++){
                     voxel nearVox;
@@ -50,7 +50,7 @@ void ChunkRenderer::render(Chunk & chunk){
                                 nearVox = chunk.blocksData[x][y][z-1];
                                 break;
                         }
-                        nearBlock = chunk.blData.blocks[(int)nearVox.id];
+                        nearBlock = BlocksData::BlocksStorage.blocks[(int)nearVox.id];
 
                         if (nearVox.id != 0){
                             modelCube(face, vox);

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtx/hash.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
@@ -13,6 +15,8 @@
 #include "../voxels/BlocksData.h"
 #include "Chunk.h"
 #include "../voxels/voxel.h"
+#include <unordered_map>
+
 class World{
     public:
     World();

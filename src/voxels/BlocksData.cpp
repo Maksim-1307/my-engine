@@ -97,6 +97,7 @@ void getFaceStone(int face, voxel &voxel, Mesh &mesh, glm::vec3 pos) {
 }
 
 BlocksData::BlocksData(){
+    std::cout << "BlocksData \n";
     init_blocks();
 }
 
@@ -112,3 +113,5 @@ void BlocksData::init_blocks(){
     blocks[1].uv = glm::vec2(1, 0);
     blocks[2].uv = glm::vec2(0, 1);
 }
+
+BlocksData BlocksData::BlocksStorage;
