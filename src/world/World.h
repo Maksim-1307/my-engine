@@ -24,7 +24,7 @@ class World{
 
     voxel get_voxel(int x, int y, int z);
 
-    std::unordered_map<glm::ivec2, std::shared_ptr<Chunk>> chunks;
+    std::unordered_map<glm::ivec2, Chunk*> chunks;
 
     void load_chunk(glm::ivec2 coords);
 };

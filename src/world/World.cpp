@@ -13,10 +13,12 @@ void World::load_chunk(glm::ivec2 coords){
     auto found = chunks.find(coords);
     if (found == chunks.end()) {
 
-        chunks.insert({coords, std::shared_ptr<Chunk>(new Chunk())});
+        chunks.insert({coords, new Chunk()});
         chunks[coords]->x = coords.x;
         chunks[coords]->z = coords.y;
         chunks[coords]->generate();
+
+        chunks[coords]->print_blocks();
 
     }
 }

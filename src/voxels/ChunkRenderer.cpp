@@ -16,18 +16,24 @@ id   axis
 
 */
 
-void ChunkRenderer::render(Chunk & chunk){
+void ChunkRenderer::render(Chunk * chunk){
+
+    cout << "before\n";
+    chunk->generate();
+    cout << "after\n";
+
     vertexCount = 0;
     indicesCount = 0;
-            cout << "dfghj\n";
-    this->chunk = chunk; // <- this is a segfault 
-                cout << "dfghj2\n";
+    this->chunk = chunk; 
     for (int x = 1; x < CHUNK_WIDTH-1; x++){
         for (int y = 1; y < CHUNK_HEIGHT-1; y++){
             for (int z = 1; z < CHUNK_WIDTH-1; z++){
+                cout << "test1\n";
                 currentCoords = vec3(x, y, z);
-                voxel vox = chunk.blocksData[x][y][z];
-                cout << vox.id << " ";
+                cout << "test2\n";
+                voxel vox = chunk->blocksData[x][y][z];
+                cout << vox.id << " "; // segfault
+                cout << "test3\n";
                 Block block = BlocksData::BlocksStorage.blocks[(int)vox.id];
                 //Block nearBlock;
                 for (int face = 0; face < 6; face++){
@@ -35,22 +41,22 @@ void ChunkRenderer::render(Chunk & chunk){
                     if (block.openFaces[face]){
                         switch (face) {
                             case 0:
-                                nearVox = chunk.blocksData[x+1][y][z];
+                                nearVox = chunk->blocksData[x+1][y][z];
                                 break;
                             case 1:
-                                nearVox = chunk.blocksData[x-1][y][z];
+                                nearVox = chunk->blocksData[x-1][y][z];
                                 break;
                             case 2:
-                                nearVox = chunk.blocksData[x][y+1][z];
+                                nearVox = chunk->blocksData[x][y+1][z];
                                 break;
                             case 3:
-                                nearVox = chunk.blocksData[x][y-1][z];
+                                nearVox = chunk->blocksData[x][y-1][z];
                                 break;
                             case 4:
-                                nearVox = chunk.blocksData[x][y][z+1];
+                                nearVox = chunk->blocksData[x][y][z+1];
                                 break;
                             case 5:
-                                nearVox = chunk.blocksData[x][y][z-1];
+                                nearVox = chunk->blocksData[x][y][z-1];
                                 break;
                         }
                         nearBlock = BlocksData::BlocksStorage.blocks[(int)nearVox.id];
@@ -63,10 +69,10 @@ void ChunkRenderer::render(Chunk & chunk){
             } cout << "\n";
         }
     }
-    chunk.indices = this->indices;
-    chunk.vertices = this->vertices;
-    chunk.indicesSize = indicesCount;
-    chunk.verticesSize = vertexCount;
+    chunk->indices = this->indices;
+    chunk->vertices = this->vertices;
+    chunk->indicesSize = indicesCount;
+    chunk->verticesSize = vertexCount;
 }
 
 
@@ -130,9 +136,9 @@ void ChunkRenderer::vertex(float x, float y, float z, float UVx, float UVy){
 
     //cout << "vertex: " << vertexCount << "\n";
 
-    vertices[vertexCount++] = x + currentCoords.x + chunk.x * CHUNK_WIDTH;
+    vertices[vertexCount++] = x + currentCoords.x + chunk->x * CHUNK_WIDTH;
     vertices[vertexCount++] = y + currentCoords.y;
-    vertices[vertexCount++] = z + currentCoords.z + chunk.z * CHUNK_HEIGHT;
+    vertices[vertexCount++] = z + currentCoords.z + chunk->z * CHUNK_HEIGHT;
     vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVx + nearBlock.uv.x / ATLAS_SIZE;
     vertices[vertexCount++] = (1.0f / ATLAS_SIZE) * (float)UVy + nearBlock.uv.y / ATLAS_SIZE;
 }

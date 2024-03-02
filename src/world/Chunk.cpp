@@ -30,6 +30,18 @@ void Chunk::generate(){
     this->blocksData[8][5][8] = dirt;
 }
 
+void Chunk::print_blocks(){
+    for (int x = 0; x < CHUNK_WIDTH; x++){
+        for (int y = 0; y < CHUNK_HEIGHT; y++){
+            for (int z = 0; z < CHUNK_WIDTH; z++){
+                std::cout << (int)this->blocksData[x][y][z].id << " ";
+            } 
+            std::cout << "\n";
+        }
+        std::cout << "\n\n";
+    }
+}
+
 void Chunk::draw(){
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

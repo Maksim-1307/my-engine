@@ -21,9 +21,12 @@ class Chunk{
         mesh.vertices.reserve(1024);
         mesh.indices.reserve(1024);
     };
+    ~Chunk(){
+        std::cout << "Chunk deleted\n";
+    };
 
     int x, z;
-    voxel blocksData[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
+    voxel blocksData[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];// = (voxel*)malloc(CHUNK_HEIGHT * CHUNK_WIDTH * CHUNK_WIDTH * sizeof(voxel));
     graphics::Mesh mesh;
     float * vertices = (float*)malloc(10000 * sizeof(float));
     int verticesSize;
@@ -38,9 +41,10 @@ class Chunk{
     //BlocksData blData;
 
     //void updateVoxels();
-    void generate();
-    void make_buffers();
+    virtual void generate();
+    virtual void make_buffers();
+    virtual void print_blocks();
 
-    void draw();
+    virtual void draw();
 
 };

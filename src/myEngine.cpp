@@ -186,11 +186,13 @@ int main(int argc, char **argv)
     // }
 
     world.load_chunk(ivec2(0, 0));
-    cout << "deb1\n";
-    renderer.render(*world.chunks[ivec2(0, 0)]);
-    cout << "deb2\n";
+    cout << "bf\n";
+    Chunk* ch = world.chunks[ivec2(0,0)];//->generate();
+    cout << "bf2\n";
+    cout << ch->indicesCount;
+    cout << "af\n";
+    renderer.render(world.chunks[ivec2(0, 0)]);
     world.chunks[ivec2(0, 0)]->make_buffers();
-    cout << "deb3\n";
 
     while (!glfwWindowShouldClose(window.get_glfw_window()))
     {
