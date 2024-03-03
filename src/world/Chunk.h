@@ -22,7 +22,7 @@ class Chunk{
         mesh.indices.reserve(1024);
     };
     ~Chunk(){
-        std::cout << "Chunk deleted\n";
+        std::cout << "Chunk "<< this->x << " " << this->z <<" deleted\n";
     };
 
     int x, z;

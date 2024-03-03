@@ -15,8 +15,13 @@ void Chunk::generate(){
         for (int y = 0; y < CHUNK_HEIGHT; y++){
             for (int z = 0; z < CHUNK_WIDTH; z++){
                 this->blocksData[x][y][z] = air;
-                if (y == 5){
+                if (y == 0 || y == 1){
                     this->blocksData[x][y][z] = stone;
+                }
+                if (y == 2){
+                    if (x == z){
+                        this->blocksData[x][y][z] = stone;
+                    }
                 }
             }
         }

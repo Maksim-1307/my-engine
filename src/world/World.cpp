@@ -9,16 +9,15 @@ voxel World::get_voxel(int x, int y, int z){
 }
 
 
-void World::load_chunk(glm::ivec2 coords){
+void World::load_chunk(int x, int z){
+    glm::ivec2 coords(x, z);
     auto found = chunks.find(coords);
     if (found == chunks.end()) {
 
-        chunks.insert({coords, new Chunk()});
-        chunks[coords]->x = coords.x;
-        chunks[coords]->z = coords.y;
-        chunks[coords]->generate();
-
-        chunks[coords]->print_blocks();
+        this->chunks.insert({coords, new Chunk()});
+        this->chunks[coords]->x = x;
+        this->chunks[coords]->z = z;
+        this->chunks[coords]->generate();
 
     }
 }

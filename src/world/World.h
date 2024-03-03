@@ -26,6 +26,6 @@ class World{
 
     std::unordered_map<glm::ivec2, Chunk*> chunks;
 
-    void load_chunk(glm::ivec2 coords);
+    void load_chunk(int x, int z);
 };
 

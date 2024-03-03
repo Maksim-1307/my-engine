@@ -22,7 +22,7 @@ class ChunkRenderer{
     ChunkRenderer(){};
     ~ChunkRenderer(){};
 
-    void render(Chunk * chunk);
+    void render(Chunk* pChunk);
     void vertex(float x, float y, float z, float UVx, float UVy);
     void face();
     void modelCube(int face, voxel &voxel);
@@ -34,5 +34,5 @@ class ChunkRenderer{
     float * vertices = (float*)malloc(10000 * sizeof(float));
     int * indices = (int*)malloc(10000 * sizeof(int));
     Block nearBlock;
-    Chunk * chunk;
+    Chunk chunk;
 };

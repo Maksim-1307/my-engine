@@ -185,14 +185,30 @@ int main(int argc, char **argv)
     //     }
     // }
 
-    world.load_chunk(ivec2(0, 0));
-    cout << "bf\n";
-    Chunk* ch = world.chunks[ivec2(0,0)];//->generate();
-    cout << "bf2\n";
-    cout << ch->indicesCount;
-    cout << "af\n";
-    renderer.render(world.chunks[ivec2(0, 0)]);
-    world.chunks[ivec2(0, 0)]->make_buffers();
+
+    for (int i = -5; i < 6; i++){
+        for (int j = -5; j < 6; j++){
+            world.load_chunk(i, j);
+            renderer.render(world.chunks[ivec2(i, j)]);
+            world.chunks[ivec2(i,j)]->make_buffers();
+        }
+    }
+
+
+    // ivec2 chunkCoords(0,0);
+
+    // world.load_chunk(0,0);
+    // cout << world.chunks[chunkCoords] <<"\n";
+    // for (const auto & [key, value] : world.chunks){
+    //     std::cout << key.x << key.y << " , value " << value << std::endl;
+    // }
+    // cout << "before\n";
+    // world.chunks[chunkCoords]->print_blocks();
+    // cout << "after\n";
+    // renderer.render(world.chunks[ivec2(0, 0)]);
+    // world.chunks[ivec2(0, 0)]->make_buffers();
+
+    int tt = 6;
 
     while (!glfwWindowShouldClose(window.get_glfw_window()))
     {
@@ -207,6 +223,14 @@ int main(int argc, char **argv)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.Use();
+
+        for (auto i : world.chunks){
+            i.second->draw();
+        }
+        world.load_chunk(0, tt);
+        renderer.render(world.chunks[ivec2(0, tt)]);
+        // world.chunks[ivec2(0,tt)]->make_buffers();
+        tt++;
 
         //chunk.generate();
         // renderer.render(chunk);
