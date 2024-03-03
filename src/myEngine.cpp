@@ -30,6 +30,7 @@
 #include "world/Chunk.h"
 #include "voxels/ChunkRenderer.h"
 #include "world/World.h"
+#include "version/version.h"
 
 using namespace graphics;
 using namespace std;
@@ -80,8 +81,11 @@ int main(int argc, char **argv)
 
     myutils::setCurrentDirectory(argv);
 
+    string version = get_version();
+    cout << "\n" << version << "\n";
+
     renderer::WindowArgs windowArgs;
-    windowArgs.name = "myEngine";
+    windowArgs.name = version;
 
     renderer::Window window(windowArgs);
 
@@ -208,7 +212,7 @@ int main(int argc, char **argv)
     // renderer.render(world.chunks[ivec2(0, 0)]);
     // world.chunks[ivec2(0, 0)]->make_buffers();
 
-    int tt = 6;
+    //int tt = 6;
 
     while (!glfwWindowShouldClose(window.get_glfw_window()))
     {
@@ -227,10 +231,10 @@ int main(int argc, char **argv)
         for (auto i : world.chunks){
             i.second->draw();
         }
-        world.load_chunk(0, tt);
-        renderer.render(world.chunks[ivec2(0, tt)]);
-        // world.chunks[ivec2(0,tt)]->make_buffers();
-        tt++;
+        // world.load_chunk(0, tt);
+        // renderer.render(world.chunks[ivec2(0, tt)]);
+        // // world.chunks[ivec2(0,tt)]->make_buffers();
+        // tt++;
 
         //chunk.generate();
         // renderer.render(chunk);
