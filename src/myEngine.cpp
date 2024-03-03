@@ -108,32 +108,7 @@ int main(int argc, char **argv)
     vox.id = 0;
     vox.state = 0;
 
-    ChunkRenderer renderer;
-    //renderer.render(chunk);
 
-    // cout << "Voxels: " << renderer.vertexCount << "\n";
-    // cout << "Indices: " << renderer.indicesCount << "\n";
-    // for (int i = 0; i < renderer.vertexCount; i++){
-
-    //     if (i % 5 == 0){
-    //         cout << "\n";
-    //     }
-    //     cout << renderer.vertices[i] << " ";
-
-    // }
-    // cout << "\n\n\n";
-
-    // for (int i = 0; i < renderer.indicesCount; i++){
-
-    //     if (i % 3 == 0){
-    //         cout << "\n";
-    //     }
-    //     cout << renderer.indices[i] << " ";
-
-    // }
-
-
-    //chunk.updateVoxels();
 
     GLfloat* vertices;
     GLuint* indices;
@@ -158,6 +133,8 @@ int main(int argc, char **argv)
     //make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
 
     World world;
+
+    ChunkRenderer renderer(&world);
 
 
     std::string vShaderSource;

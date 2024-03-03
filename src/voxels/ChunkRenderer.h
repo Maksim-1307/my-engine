@@ -7,6 +7,7 @@
 #include "../world/Chunk.h"
 #include "../graphics/Mesh.h"
 #include "../constants.h"
+#include "../world/World.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
@@ -19,7 +20,9 @@ using namespace std;
 
 class ChunkRenderer{
     public:
-    ChunkRenderer(){};
+    ChunkRenderer(World * world){
+        this->world = world;
+    };
     ~ChunkRenderer(){};
 
     void render(Chunk* pChunk);
@@ -35,4 +38,5 @@ class ChunkRenderer{
     int * indices = (int*)malloc(10000 * sizeof(int));
     Block nearBlock;
     Chunk chunk;
+    World * world;
 };

@@ -5,6 +5,10 @@ voxel World::get_voxel(int x, int y, int z){
     auto found = chunks.find(chunk);
     if (found != chunks.end()) {
         return chunks[chunk]->blocksData[x % CHUNK_WIDTH][y % CHUNK_HEIGHT][z % CHUNK_WIDTH];
+    } else {
+        voxel nullvox;
+        nullvox.id = 0;
+        return nullvox;
     }
 }
 
