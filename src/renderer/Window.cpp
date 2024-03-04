@@ -3,10 +3,12 @@
 namespace renderer{
 
     Window::Window( WindowArgs args ){
+
         if (!glfwInit()) {
             std::cerr << "ERROR: failed to initialize GLFW" << std::endl;
             exit(-1);
         }
+        std::cout << "test01\n";
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -14,13 +16,12 @@ namespace renderer{
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-
         this->height = args.height;
         this->width = args.width;
 
         this->GLFWwindow = glfwCreateWindow(width, height, args.name.c_str(), nullptr, nullptr);
-
         glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        //glfwSetInputMode(this->GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
         if (!GLFWwindow){
             std::cerr << "ERROR: failed to create a GLFW window" << std::endl;
@@ -29,8 +30,6 @@ namespace renderer{
 
         glfwMakeContextCurrent(GLFWwindow);
         glfwSetWindowSizeCallback(GLFWwindow, windowSizeCallback);
-
-        std::cout << "test FF";
 
         glewExperimental = GL_TRUE;
         GLenum gl_err = glewInit();

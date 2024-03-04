@@ -48,6 +48,10 @@ mat4 Camera::getView(){
     return lookAt(position, position + front, up);
 }
 
+mat4 Camera::getViewFromNull(){
+    return lookAt(-front, vec3(0), vec3(0,1,0));
+}
+
 mat4 Camera::getProjection(){
     return perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), 0.01f, 1500.0f);
 }

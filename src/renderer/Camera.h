@@ -38,6 +38,8 @@ namespace renderer{
 
         mat4 getView();
 
+        mat4 getViewFromNull();
+
         mat4 getProjection();
 
         void move(float x, float y, float z);

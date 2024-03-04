@@ -47,6 +47,109 @@ BlockFace stoneFaces[]{
     BlockFace()
 };
 
+class Line {
+    int shaderProgram;
+    unsigned int VBO, VAO;
+    vector<float> vertices;
+    vec3 startPoint;
+    vec3 endPoint;
+    mat4 MVP;
+    vec3 lineColor;
+public:
+    Line(vec3 start, vec3 end) {
+
+        startPoint = start;
+        endPoint = end;
+        lineColor = vec3(1,1,1);
+        MVP = mat4(1.0f);
+
+        const char *vertexShaderSource = "#version 330 core\n"
+            "layout (location = 0) in vec3 aPos;\n"
+            "uniform mat4 MVP;\n"
+            "void main()\n"
+            "{\n"
+            "   gl_Position = MVP * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+            "}\0";
+        const char *fragmentShaderSource = "#version 330 core\n"
+            "out vec4 FragColor;\n"
+            "uniform vec3 color;\n"
+            "void main()\n"
+            "{\n"
+            "   FragColor = vec4(color, 1.0f);\n"
+            "}\n\0";
+
+        // vertex shader
+        int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+        glCompileShader(vertexShader);
+        // check for shader compile errors
+
+        // fragment shader
+        int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+        glCompileShader(fragmentShader);
+        // check for shader compile errors
+
+        // link shaders
+        shaderProgram = glCreateProgram();
+        glAttachShader(shaderProgram, vertexShader);
+        glAttachShader(shaderProgram, fragmentShader);
+        glLinkProgram(shaderProgram);
+        // check for linking errors
+
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+
+        vertices = {
+             start.x, start.y, start.z,
+             end.x, end.y, end.z,
+
+        };
+        
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glBindVertexArray(VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices.data(), GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0); 
+        glBindVertexArray(0); 
+
+    }
+
+    int setMVP(mat4 mvp) {
+        MVP = mvp;
+        return 1;
+    }
+
+    int setColor(vec3 color) {
+        lineColor = color;
+        return 1;
+    }
+
+    int draw() {
+    
+        glUseProgram(shaderProgram);
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniform3fv(glGetUniformLocation(shaderProgram, "color"), 1, &lineColor[0]);
+
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_LINES, 0, 2);
+        return 1;
+    }
+
+    ~Line() {
+
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBO);
+        glDeleteProgram(shaderProgram);
+    }
+};
+
 void make_buffers(float * verticesPointer, int verticesLen, int * indicesPointer, int indicesLen, GLuint & VBO, GLuint & VAO, GLuint & EBO){
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -82,15 +185,11 @@ int main(int argc, char **argv)
 
     myutils::setCurrentDirectory(argv);
 
-    //const string version = get_version();
+    //string version = get_version();
     cout << "\n" << VOXELGAME_VERSION << "\n";
-
     renderer::WindowArgs windowArgs;
     windowArgs.name = VOXELGAME_VERSION;
-        
     renderer::Window window(windowArgs); // segfault 
-
-    cout << "test";
 
     graphics::Mesh cubeMesh;
 
@@ -179,21 +278,13 @@ int main(int argc, char **argv)
         }
     }
 
-
-    // ivec2 chunkCoords(0,0);
-
-    // world.load_chunk(0,0);
-    // cout << world.chunks[chunkCoords] <<"\n";
-    // for (const auto & [key, value] : world.chunks){
-    //     std::cout << key.x << key.y << " , value " << value << std::endl;
-    // }
-    // cout << "before\n";
-    // world.chunks[chunkCoords]->print_blocks();
-    // cout << "after\n";
-    // renderer.render(world.chunks[ivec2(0, 0)]);
-    // world.chunks[ivec2(0, 0)]->make_buffers();
-
-    //int tt = 6;
+    float lineLen = .05f;
+    Line Xaxis(vec3(0,0,0), vec3(1,0,0) * lineLen);
+    Xaxis.setColor(vec3(1, 0, 0));
+    Line Yaxis(vec3(0,0,0), vec3(0,1,0) * lineLen);
+    Yaxis.setColor(vec3(0, 1, 0));
+    Line Zaxis(vec3(0,0,0), vec3(0,0,1) * lineLen);
+    Zaxis.setColor(vec3(0, 0, 1));
 
     while (!glfwWindowShouldClose(window.get_glfw_window()))
     {
@@ -207,22 +298,11 @@ int main(int argc, char **argv)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shaderProgram.Use();
 
         for (auto i : world.chunks){
             i.second->draw();
         }
-        // world.load_chunk(0, tt);
-        // renderer.render(world.chunks[ivec2(0, tt)]);
-        // // world.chunks[ivec2(0,tt)]->make_buffers();
-        // tt++;
 
-        //chunk.generate();
-        // renderer.render(chunk);
-        // chunk.make_buffers();
-        // chunk.draw();
-        // make_buffers(renderer.vertices, renderer.vertexCount, renderer.indices, renderer.indicesCount, vbo, vao, ebo);
-        // draw(vao, ebo, renderer.vertexCount);
 
         glm::vec2 cameraRotation = mouse.update();
 
@@ -233,6 +313,15 @@ int main(int argc, char **argv)
         view = camera.getView();
         projection = camera.getProjection();
         //model = glm::rotate(model, glm::radians(10.0f) * deltaTime, glm::vec3(1.0f, 1.0f, 0.0f));
+
+        Xaxis.setMVP(projection * camera.getViewFromNull());
+        Xaxis.draw();
+        Yaxis.setMVP(projection * camera.getViewFromNull());
+        Yaxis.draw();
+        Zaxis.setMVP(projection * camera.getViewFromNull());
+        Zaxis.draw();
+
+        shaderProgram.Use();
 
         shaderProgram.set_matrix4("model", model);
         shaderProgram.set_matrix4("view", view);
