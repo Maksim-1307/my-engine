@@ -14,6 +14,7 @@ namespace renderer{
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+
         this->height = args.height;
         this->width = args.width;
 
@@ -28,6 +29,8 @@ namespace renderer{
 
         glfwMakeContextCurrent(GLFWwindow);
         glfwSetWindowSizeCallback(GLFWwindow, windowSizeCallback);
+
+        std::cout << "test FF";
 
         glewExperimental = GL_TRUE;
         GLenum gl_err = glewInit();

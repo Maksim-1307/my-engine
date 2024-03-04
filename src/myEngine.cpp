@@ -31,6 +31,7 @@
 #include "voxels/ChunkRenderer.h"
 #include "world/World.h"
 #include "version/version.h"
+#define VOXELGAME_VERSION "VoxelGame indev-04.03.24"
 
 using namespace graphics;
 using namespace std;
@@ -81,21 +82,24 @@ int main(int argc, char **argv)
 
     myutils::setCurrentDirectory(argv);
 
-    string version = get_version();
-    cout << "\n" << version << "\n";
+    //const string version = get_version();
+    cout << "\n" << VOXELGAME_VERSION << "\n";
 
     renderer::WindowArgs windowArgs;
-    windowArgs.name = version;
+    windowArgs.name = VOXELGAME_VERSION;
+        
+    renderer::Window window(windowArgs); // segfault 
 
-    renderer::Window window(windowArgs);
+    cout << "test";
 
     graphics::Mesh cubeMesh;
+
+    
 
     Chunk chunk;
     chunk.x = 2;
     chunk.generate();
 
-    cout << "\n";
     // for (int x = 1; x < CHUNK_WIDTH-1; x++){
     //     for (int y = 1; y < CHUNK_HEIGHT-1; y++){
     //         for (int z = 1; z < CHUNK_WIDTH-1; z++){
