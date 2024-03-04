@@ -273,6 +273,10 @@ int main(int argc, char **argv)
     for (int i = -5; i < 6; i++){
         for (int j = -5; j < 6; j++){
             world.load_chunk(i, j);
+        }
+    }
+    for (int i = -5; i < 6; i++){
+        for (int j = -5; j < 6; j++){
             renderer.render(world.chunks[ivec2(i, j)]);
             world.chunks[ivec2(i,j)]->make_buffers();
         }

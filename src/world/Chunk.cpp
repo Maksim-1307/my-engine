@@ -19,7 +19,7 @@ void Chunk::generate(){
                     this->blocksData[x][y][z] = stone;
                 }
                 if (y == 2){
-                    if (x == z || x == 15){
+                    if (x == z || x == 0 || z == 0 || z == 1){
                         this->blocksData[x][y][z] = stone;
                     }
                 }
